@@ -4,17 +4,17 @@ type JobFormValues = {
   company: string;
   jobTitle: string;
   status: "applied" | "interview" | "offer" | "rejected";
-  deadline?: string; // YYYY-MM-DD
+  deadline?: string;
   notes?: string;
 };
 
 type JobFormProps = {
-  onSave?: (values: JobFormValues) => void; // optional for now; logs to console if not provided
+  onSave?: (values: JobFormValues) => void;
 };
 
 export default function JobForm({ onSave }: JobFormProps) {
   return (
-    <section className="mt-10 flex justify-center">
+    <section className="mt-12 flex justify-center">
       <form
         aria-labelledby="job-form-title"
         onSubmit={(e) => {
@@ -31,94 +31,86 @@ export default function JobForm({ onSave }: JobFormProps) {
           if (onSave) onSave(values);
           else console.log("JobForm submit:", values);
         }}
-        className="w-full max-w-md space-y-6 rounded-lg bg-white p-6 shadow-lg"
+        className="w-full max-w-md space-y-6 rounded-2xl bg-white p-8 shadow-lg"
       >
-        <h3 id="job-form-title" className="sr-only">
-          Add a job application
-        </h3>
+        <h3 id="job-form-title" className="sr-only">Add a job application</h3>
 
-        {/* Company */}
         <div>
-          <label htmlFor="company" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="company" className="block text-sm font-medium text-[var(--ink)]">
             Company
           </label>
           <input
-            id="company"
-            name="company"
-            type="text"
-            required
-            autoComplete="organization"
-            placeholder="e.g. Google"
-            className="mt-1 w-full rounded border border-gray-300 p-2 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-300"
+            id="company" name="company" type="text" required placeholder="e.g. Google"
+            className="mt-1 w-full rounded border border-gray-300 p-2
+                       text-[var(--ink)]
+                       focus:border-[var(--pink-400)]
+                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
           />
         </div>
 
-        {/* Job Title */}
         <div>
-          <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="jobTitle" className="block text-sm font-medium text-[var(--ink)]">
             Job Title
           </label>
           <input
-            id="jobTitle"
-            name="jobTitle"
-            type="text"
-            required
-            autoComplete="organization-title"
-            placeholder="e.g. Frontend Intern"
-            className="mt-1 w-full rounded border border-gray-300 p-2 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-300"
+            id="jobTitle" name="jobTitle" type="text" required placeholder="e.g. Frontend Intern"
+            className="mt-1 w-full rounded border border-gray-300 p-2
+                       text-[var(--ink)]
+                       focus:border-[var(--pink-400)]
+                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
           />
         </div>
 
-        {/* Status */}
         <div>
-          <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="status" className="block text-sm font-medium text-[var(--ink)]">
             Status
           </label>
           <select
-            id="status"
-            name="status"
-            defaultValue="applied"
-            className="mt-1 w-full rounded border border-gray-300 p-2 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-300"
+            id="status" name="status" defaultValue="applied"
+            className="mt-1 w-full rounded border border-gray-300 p-2
+                       text-[var(--ink)]
+                       focus:border-[var(--pink-400)]
+                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
           >
-            <option value="Applied">Applied</option>
-            <option value="Interview">Interview</option>
-            <option value="Offer">Offer</option>
-            <option value="Withdrawn">Withdrawn</option>
-            <option value="Rejected">Rejected</option>  
+            <option value="applied">Applied</option>
+            <option value="interview">Interview</option>
+            <option value="offer">Offer</option>
+            <option value="rejected">Rejected</option>
           </select>
         </div>
 
-        {/* Deadline */}
         <div>
-          <label htmlFor="deadline" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="deadline" className="block text-sm font-medium text-[var(--ink)]">
             Deadline
           </label>
           <input
-            id="deadline"
-            name="deadline"
-            type="date"
-            className="mt-1 w-full rounded border border-gray-300 p-2 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-300"
+            id="deadline" name="deadline" type="date"
+            className="mt-1 w-full rounded border border-gray-300 p-2
+                       text-[var(--ink)]
+                       focus:border-[var(--pink-400)]
+                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
           />
         </div>
 
-        {/* Notes */}
         <div>
-          <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="notes" className="block text-sm font-medium text-[var(--ink)]">
             Notes
           </label>
           <textarea
-            id="notes"
-            name="notes"
-            rows={3}
-            placeholder="Optional notes"
-            className="mt-1 w-full rounded border border-gray-300 p-2 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-300"
+            id="notes" name="notes" rows={3} placeholder="Optional notes"
+            className="mt-1 w-full rounded border border-gray-300 p-2
+                       text-[var(--ink)]
+                       placeholder:text-[var(--muted)]
+                       focus:border-[var(--pink-400)]
+                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
           />
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
-          className="w-full rounded bg-pink-500 py-2 text-white transition hover:bg-pink-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400"
+          className="w-full rounded-2xl bg-[var(--pink-500)] py-2 text-white transition
+                     hover:bg-[var(--pink-400)]
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pink-400)]"
         >
           Save and Breathe
         </button>

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 type LogoRowProps = {
   logos?: { src: string; alt?: string }[];
-  size?: number; // pixels for width/height
+  size?: number;
 };
 
 export default function LogoRow({
@@ -24,7 +24,7 @@ export default function LogoRow({
           alt={logo.alt ?? "Logo"}
           width={size}
           height={size}
-          priority={i === 0} // tiny perf tweak
+          priority={i === 0}
         />
       ))}
     </div>
