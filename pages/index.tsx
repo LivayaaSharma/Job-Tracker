@@ -15,17 +15,16 @@ export default function Home() {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <main className="min-h-screen bg-pink-100 font-sans">
+      <main className="min-h-screen bg-[var(--pink-50)] font-sans">
         <Navbar />
-
-        <Header
-          title="Progress looks better when it’s visible."
-          subtitle="Add structure to your ‘apply and hope for the best’ era."
-        />
-
-        <JobForm />
-
-        <LogoRow />
+        <div className="mx-auto max-w-3xl px-6">
+          <Header
+            title="Progress looks better when it’s visible."
+            subtitle="Add structure to your ‘apply and hope for the best’ era."
+          />
+          <JobForm />
+          <LogoRow />
+        </div>
       </main>
     </>
   );

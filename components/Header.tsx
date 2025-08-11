@@ -10,8 +10,8 @@ export default function Header({ title, subtitle, align = "center" }: HeaderProp
 
   return (
     <section className={`${alignClass} mt-16`}>
-      <h2 className="mb-2 text-2xl font-bold text-gray-800">{title}</h2>
-      {subtitle ? <p className="text-gray-600">{subtitle}</p> : null}
+      <h2 className="mb-2 text-2xl font-bold text-[var(--ink)]">{title}</h2>
+      {subtitle ? <p className="text-[var(--muted)]">{subtitle}</p> : null}
     </section>
   );
 }

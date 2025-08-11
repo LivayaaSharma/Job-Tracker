@@ -1,3 +1,23 @@
 @tailwind base;
+
+/* 🎨 Custom CSS Variables (Theme Tokens) */
+:root {
+  --ink: #1f2937;
+  --muted: #6b7280;
+
+  --pink-50: #ffe7f1;
+  --pink-400: #f472b6;
+  --pink-500: #ec4899;
+  --pink-600: #D81B60;
+
+  --lav-50: #f5e9ff;
+  --lav-400: #c084fc;
+  --lav-500: #a855f7;
+}
+
+html, body {
+  background: var(--pink-50);
+}
+
 @tailwind components;
 @tailwind utilities;
