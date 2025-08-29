@@ -4,6 +4,7 @@ A lightweight job application tracker built with **Next.js (Pages Router)**, **T
 Plan: track applications, statuses (applied/withdrawn/rejected), and analyze job descriptions with OpenAI.
 
 ## Tech Stack
+
 - Next.js (Pages Router) + React
 - Tailwind CSS
 - Supabase (Auth + DB)
@@ -23,21 +24,25 @@ Plan: track applications, statuses (applied/withdrawn/rejected), and analyze job
    App will be on http://localhost:3000
 
 ## Scripts
+
 - npm run dev – start Next.js in dev
 - npm run build – production build
 - npm run start – start production server
 - npm run lint – lint code
 
 ## Project Structure
-/pages          # Pages Router
-/components     # Reusable UI
-/styles         # Tailwind/global styles
-/public         # Static assets (favicons, images)
+
+/pages # Pages Router
+/components # Reusable UI
+/styles # Tailwind/global styles
+/public # Static assets (favicons, images)
 
 ## Environment Variables
+
 See `.env.example`. Do **not** commit `.env`.
 
 ## Roadmap
+
 - [ ] Job status filters (applied / withdrawn / rejected)
 - [ ] Supabase schema + auth
 - [ ] OpenAI-powered JD analysis
@@ -45,7 +50,9 @@ See `.env.example`. Do **not** commit `.env`.
 - [ ] Deploy to Vercel
 
 ## Contributing
+
 PRs welcome. Keep commits focused; include screenshots for UI changes.
 
 ## License
+
 MIT © 2025 Livayaa Sharma
