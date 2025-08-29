@@ -8,14 +8,15 @@
   --pink-50: #ffe7f1;
   --pink-400: #f472b6;
   --pink-500: #ec4899;
-  --pink-600: #D81B60;
+  --pink-600: #d81b60;
 
   --lav-50: #f5e9ff;
   --lav-400: #c084fc;
   --lav-500: #a855f7;
 }
 
-html, body {
+html,
+body {
   background: var(--pink-50);
 }
 

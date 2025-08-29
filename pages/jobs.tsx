@@ -7,10 +7,16 @@ export default function JobsPage() {
       <Navbar />
       <div className="mx-auto max-w-5xl px-6">
         <Header title="Your Jobs" subtitle="Cards + filters coming in Phase 4." />
-        <div className="mt-12 rounded-2xl bg-white p-8 text-[var(--muted)] shadow">
-          Placeholder — job cards grid will live here.
+        <div className="mt-10 rounded-2xl bg-white p-8 text-[var(--muted)] shadow">
+          No jobs yet. Add one to get started!
         </div>
       </div>
     </main>
   );
 }
+
+//NOTES:
+
+//max-w-*  3xl vs 5xl
+//Think of max-w-3xl as a blog/article column—ideal for reading and single forms.
+//Think of max-w-5xl as a gallery board—roomy enough to place several items in a row.
