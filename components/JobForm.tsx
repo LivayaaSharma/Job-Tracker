@@ -3,7 +3,7 @@ import * as React from "react";
 type JobFormValues = {
   company: string;
   jobTitle: string;
-  status: "applied" | "interview" | "offer" | "rejected";
+  status: "applied" | "interview" | "offer" | "rejected" | "withdrawn";
   deadline?: string;
   notes?: string;
 };
@@ -33,14 +33,20 @@ export default function JobForm({ onSave }: JobFormProps) {
         }}
         className="w-full max-w-md space-y-6 rounded-2xl bg-white p-8 shadow-lg"
       >
-        <h3 id="job-form-title" className="sr-only">Add a job application</h3>
+        <h3 id="job-form-title" className="sr-only">
+          Add a job application
+        </h3>
 
         <div>
           <label htmlFor="company" className="block text-sm font-medium text-[var(--ink)]">
             Company
           </label>
           <input
-            id="company" name="company" type="text" required placeholder="e.g. Google"
+            id="company"
+            name="company"
+            type="text"
+            required
+            placeholder="e.g. Google"
             className="mt-1 w-full rounded border border-gray-300 p-2
                        text-[var(--ink)]
                        focus:border-[var(--pink-400)]
@@ -53,7 +59,11 @@ export default function JobForm({ onSave }: JobFormProps) {
             Job Title
           </label>
           <input
-            id="jobTitle" name="jobTitle" type="text" required placeholder="e.g. Frontend Intern"
+            id="jobTitle"
+            name="jobTitle"
+            type="text"
+            required
+            placeholder="e.g. Frontend Intern"
             className="mt-1 w-full rounded border border-gray-300 p-2
                        text-[var(--ink)]
                        focus:border-[var(--pink-400)]
@@ -66,7 +76,9 @@ export default function JobForm({ onSave }: JobFormProps) {
             Status
           </label>
           <select
-            id="status" name="status" defaultValue="applied"
+            id="status"
+            name="status"
+            defaultValue="applied"
             className="mt-1 w-full rounded border border-gray-300 p-2
                        text-[var(--ink)]
                        focus:border-[var(--pink-400)]
@@ -76,6 +88,7 @@ export default function JobForm({ onSave }: JobFormProps) {
             <option value="interview">Interview</option>
             <option value="offer">Offer</option>
             <option value="rejected">Rejected</option>
+            <option value="withdrawn">Withdrawn</option>
           </select>
         </div>
 
@@ -84,7 +97,9 @@ export default function JobForm({ onSave }: JobFormProps) {
             Deadline
           </label>
           <input
-            id="deadline" name="deadline" type="date"
+            id="deadline"
+            name="deadline"
+            type="date"
             className="mt-1 w-full rounded border border-gray-300 p-2
                        text-[var(--ink)]
                        focus:border-[var(--pink-400)]
@@ -97,7 +112,10 @@ export default function JobForm({ onSave }: JobFormProps) {
             Notes
           </label>
           <textarea
-            id="notes" name="notes" rows={3} placeholder="Optional notes"
+            id="notes"
+            name="notes"
+            rows={3}
+            placeholder="Optional notes"
             className="mt-1 w-full rounded border border-gray-300 p-2
                        text-[var(--ink)]
                        placeholder:text-[var(--muted)]
