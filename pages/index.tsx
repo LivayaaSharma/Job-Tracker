@@ -42,7 +42,7 @@ export default function Home() {
               Add structure to your job hunt—{" "}
               <RotatingText
                 words={["apply", "track", "reflect", "win"]}
-                intervalMs={2500}
+                intervalMs={1500}   //speed for the 4 words
                 className="font-semibold"
               />
               .
