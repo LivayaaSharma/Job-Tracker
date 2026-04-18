@@ -14,7 +14,7 @@ const PASTELS = ["#FF1493", "#813eb6"]; // deep pink, purple
 
 export default function RotatingText({
   words,
-  intervalMs = 2500,
+  intervalMs = 1500,
   className,
   colors = PASTELS,
 }: Props) {
