@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C c:/Users/Dell/Documents/job-tracker-second status)",
+      "Bash(git -C c:/Users/Dell/Documents/job-tracker-second log --oneline --all -20)",
+      "Bash(git -C c:/Users/Dell/Documents/job-tracker-second branch -a)",
+      "Bash(git -C c:/Users/Dell/Documents/job-tracker-second remote -v)",
+      "Bash(git -C c:/Users/Dell/Documents/job-tracker-second log --oneline main)",
+      "Bash(git -C c:/Users/Dell/Documents/job-tracker-second log --oneline remotes/origin/main)",
+      "Bash(git -C c:/Users/Dell/Documents/job-tracker-second log --oneline feat/phase-2-landing)",
+      "Bash(git -C c:/Users/Dell/Documents/job-tracker-second fetch origin)"
+    ]
+  }
+}
