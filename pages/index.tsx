@@ -18,7 +18,7 @@ export default function Home() {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <main className="min-h-screen bg-[var(--pink-50)] font-sans">
+      <main className="min-h-screen bg-page-bg font-sans">
         <Navbar />
 
         {/* Landing hero */}
@@ -30,14 +30,14 @@ export default function Home() {
           >
             <h1
               className="mx-auto max-w-5xl text-4xl font-extrabold tracking-tight sm:text-6xl"
-              style={{ color: "var(--ink-900)" }}
+              style={{ color: "var(--ink)" }}
             >
               Progress looks better when it’s visible.
             </h1>
 
             <p
               className="mx-auto mt-4 max-w-2xl text-lg sm:text-xl"
-              style={{ color: "var(--ink-700)" }}
+              style={{ color: "var(--muted)" }}
             >
               Add structure to your job hunt—{" "}
               <RotatingText
@@ -83,10 +83,10 @@ function CTA({ href, title, desc }: { href: string; title: string; desc: string 
         className="rounded-2xl p-6 text-left shadow-sm ring-1 transition hover:shadow-md
                    focus-visible:ring-2 focus-visible:ring-offset-2"
         style={{
-          background: "var(--surface, #fff)",
+          background: "var(--card-bg)",
           boxShadow: "0 10px 20px -15px rgba(0,0,0,0.25)",
-          borderColor: "var(--border-200, rgba(0,0,0,0.06))",
-          color: "var(--ink-800)",
+          borderColor: "rgba(0,0,0,0.06)",
+          color: "var(--ink)",
         }}
       >
         <h3 className="text-lg font-semibold">{title}</h3>
