@@ -2,22 +2,24 @@
 
 /* 🎨 Custom CSS Variables (Theme Tokens) */
 :root {
-  --ink: #1f2937;
-  --muted: #6b7280;
+  --ink: #2C3525;
+  --muted: #B4B2A9;
 
-  --pink-50: #ffe7f1;
-  --pink-400: #f472b6;
-  --pink-500: #ec4899;
-  --pink-600: #d81b60;
+  --pink-light: #F4C0D1;
+  --pink-bold: #D4537E;
+  --peach: #F0997B;
 
-  --lav-50: #f5e9ff;
-  --lav-400: #c084fc;
-  --lav-500: #a855f7;
+  --sage-light: #DAE5D0;
+  --sage-mid: #8FA878;
+  --sage-dark: #4A5E3A;
+
+  --card-bg: #FFFFFF;
+  --page-bg: #FFF5F6;
 }
 
 html,
 body {
-  background: var(--pink-50);
+  background: var(--page-bg);
 }
 
 @tailwind components;

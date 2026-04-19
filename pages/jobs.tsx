@@ -3,11 +3,11 @@ import Header from "@/components/Header";
 
 export default function JobsPage() {
   return (
-    <main className="min-h-screen bg-[var(--pink-50)]">
+    <main className="min-h-screen bg-page-bg">
       <Navbar />
       <div className="mx-auto max-w-5xl px-6">
         <Header title="Your Jobs" subtitle="Cards + filters coming in Phase 4." />
-        <div className="mt-10 rounded-2xl bg-white p-8 text-[var(--muted)] shadow">
+        <div className="mt-10 rounded-2xl bg-white p-8 text-muted shadow">
           No jobs yet. Add one to get started!
         </div>
       </div>

@@ -13,8 +13,8 @@ export default function Navbar() {
   const { pathname } = useRouter(); //const router = useRouter(); const pathname = router.pathname;
 
   return (
-    <nav className="flex items-center justify-between bg-white/80 px-6 py-4 shadow-md backdrop-blur">
-      <Link href="/" className="text-xl font-bold text-[var(--pink-500)]">
+    <nav className="flex items-center justify-between bg-card-bg px-6 py-4 shadow-md backdrop-blur">
+      <Link href="/" className="text-xl font-bold text-sage-dark">
         JobTracker
       </Link>
       <div className="space-x-1">
@@ -26,8 +26,8 @@ export default function Navbar() {
               href={link.href}
               className={`rounded-2xl px-3 py-1.5 text-sm transition ${
                 active
-                  ? "bg-white/80 text-[var(--pink-400)] hover:text-[var(--pink-600)] font-semibold"
-                  : "text-[var(--pink-400)] hover:bg-white/80 hover:text-[var(--pink-600)] opacity-80"
+                  ? "bg-sage-dark text-white font-semibold"
+                  : "text-sage-mid hover:text-sage-dark opacity-80"
               }`}
             >
               {link.label}

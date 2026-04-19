@@ -38,7 +38,7 @@ export default function JobForm({ onSave }: JobFormProps) {
         </h3>
 
         <div>
-          <label htmlFor="company" className="block text-sm font-medium text-[var(--ink)]">
+          <label htmlFor="company" className="block text-sm font-medium text-ink">
             Company
           </label>
           <input
@@ -48,14 +48,14 @@ export default function JobForm({ onSave }: JobFormProps) {
             required
             placeholder="e.g. Google"
             className="mt-1 w-full rounded border border-gray-300 p-2
-                       text-[var(--ink)]
-                       focus:border-[var(--pink-400)]
-                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
+                       text-ink
+                       focus:border-sage-mid
+                       focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
         </div>
 
         <div>
-          <label htmlFor="jobTitle" className="block text-sm font-medium text-[var(--ink)]">
+          <label htmlFor="jobTitle" className="block text-sm font-medium text-ink">
             Job Title
           </label>
           <input
@@ -65,14 +65,14 @@ export default function JobForm({ onSave }: JobFormProps) {
             required
             placeholder="e.g. Frontend Intern"
             className="mt-1 w-full rounded border border-gray-300 p-2
-                       text-[var(--ink)]
-                       focus:border-[var(--pink-400)]
-                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
+                       text-ink
+                       focus:border-sage-mid
+                       focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
         </div>
 
         <div>
-          <label htmlFor="status" className="block text-sm font-medium text-[var(--ink)]">
+          <label htmlFor="status" className="block text-sm font-medium text-ink">
             Status
           </label>
           <select
@@ -80,9 +80,9 @@ export default function JobForm({ onSave }: JobFormProps) {
             name="status"
             defaultValue="applied"
             className="mt-1 w-full rounded border border-gray-300 p-2
-                       text-[var(--ink)]
-                       focus:border-[var(--pink-400)]
-                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
+                       text-ink
+                       focus:border-sage-mid
+                       focus:outline-none focus:ring-2 focus:ring-sage-mid"
           >
             <option value="applied">Applied</option>
             <option value="interview">Interview</option>
@@ -93,7 +93,7 @@ export default function JobForm({ onSave }: JobFormProps) {
         </div>
 
         <div>
-          <label htmlFor="deadline" className="block text-sm font-medium text-[var(--ink)]">
+          <label htmlFor="deadline" className="block text-sm font-medium text-ink">
             Deadline
           </label>
           <input
@@ -101,14 +101,14 @@ export default function JobForm({ onSave }: JobFormProps) {
             name="deadline"
             type="date"
             className="mt-1 w-full rounded border border-gray-300 p-2
-                       text-[var(--ink)]
-                       focus:border-[var(--pink-400)]
-                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
+                       text-ink
+                       focus:border-sage-mid
+                       focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
         </div>
 
         <div>
-          <label htmlFor="notes" className="block text-sm font-medium text-[var(--ink)]">
+          <label htmlFor="notes" className="block text-sm font-medium text-ink">
             Notes
           </label>
           <textarea
@@ -117,18 +117,18 @@ export default function JobForm({ onSave }: JobFormProps) {
             rows={3}
             placeholder="Optional notes"
             className="mt-1 w-full rounded border border-gray-300 p-2
-                       text-[var(--ink)]
-                       placeholder:text-[var(--muted)]
-                       focus:border-[var(--pink-400)]
-                       focus:outline-none focus:ring-2 focus:ring-[var(--pink-400)]"
+                       text-ink
+                       placeholder:text-muted
+                       focus:border-sage-mid
+                       focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full rounded-2xl bg-[var(--pink-500)] py-2 text-white transition
-                     hover:bg-[var(--pink-400)]
-                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pink-400)]"
+          className="w-full rounded-2xl bg-sage-dark py-2 text-white transition
+                     hover:bg-sage-mid
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-mid"
         >
           Save and Breathe
         </button>

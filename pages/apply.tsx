@@ -9,7 +9,7 @@ export default function ApplyPage() {
       <Head>
         <title>Apply • JobTracker</title>
       </Head>
-      <main className="min-h-screen bg-[var(--pink-50)] font-sans">
+      <main className="min-h-screen bg-page-bg font-sans">
         <Navbar />
         <div className="mx-auto max-w-3xl px-6">
           <Header
@@ -22,26 +22,3 @@ export default function ApplyPage() {
     </>
   );
 }
-
-// import Navbar from "@/components/Navbar";
-// import Header from "@/components/Header";
-// import JobForm from "@/components/JobForm";
-
-// export default function ApplyPage() {
-// // ^ Because this file is /pages/apply.tsx,
-// //   Next.js automatically makes it available at the route "/apply".
-
-//   return (
-//     <main className="min-h-screen bg-[var(--pink-50)]">
-//       <Navbar />
-//       <div className="mx-auto max-w-3xl px-6">
-//         <Header title="Add a Job" subtitle="CJSD first. Optional details later." />
-//         <JobForm />
-//       </div>
-//     </main>
-//   );
-// }
-
-// //NOTES:
-
-// //<main> tag helps w better seo, ie software engine optimization, so that this site shows up on or near the top on search engines
