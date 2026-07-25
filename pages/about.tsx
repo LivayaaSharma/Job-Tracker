@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-page-bg">
+    <main className="min-h-screen bg-page-bg pt-14">
       <Navbar />
       <div className="mx-auto max-w-3xl px-6">
         <Header title="About" subtitle="Pixel‑core, pastel, zero‑clutter." />

@@ -99,7 +99,7 @@ export default function Home() {
         <meta name="theme-color" content="#FFF5F6" />
       </Head>
 
-      <main id="main-content" className="min-h-screen overflow-hidden bg-page-bg font-['Space_Grotesk',sans-serif] text-ink">
+      <main id="main-content" className="min-h-screen overflow-x-hidden bg-page-bg pt-14 font-['Space_Grotesk',sans-serif] text-ink">
         <Navbar />
 
         <section className="mx-auto max-w-6xl px-6 pb-24 pt-24 text-center sm:px-8 sm:pt-32 lg:pb-36 lg:pt-40">
