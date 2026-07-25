@@ -1,6 +1,5 @@
 @tailwind base;
 
-/* 🎨 Custom CSS Variables (Theme Tokens) */
 :root {
   --ink: #2C3525;
   --muted: #B4B2A9;
@@ -15,6 +14,17 @@
 
   --card-bg: #FFFFFF;
   --page-bg: #FFF5F6;
+
+  --status-saved-bg: #EEEDFE;
+  --status-saved-text: #534AB7;
+  --status-applied-bg: #DAE5D0;
+  --status-applied-text: #3B6D11;
+  --status-interview-bg: #FFE8DE;
+  --status-interview-text: #993C1D;
+  --status-offer-bg: #FBEAF0;
+  --status-offer-text: #72243E;
+  --status-rejected-bg: #FCEBEB;
+  --status-rejected-text: #A32D2D;
 }
 
 html,

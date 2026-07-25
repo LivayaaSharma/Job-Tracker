@@ -1,9 +1,14 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import JobForm from "@/components/JobForm";
+import { useJobs } from "@/hooks/useJobs";
 
 export default function ApplyPage() {
+  const { addJob } = useJobs();
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -16,7 +21,12 @@ export default function ApplyPage() {
             title="Start an application"
             subtitle="Save the role, analyze the JD, and set your follow-ups."
           />
-          <JobForm />
+          <JobForm
+            onSave={(values) => {
+              addJob(values);
+              router.push("/jobs");
+            }}
+          />
         </div>
       </main>
     </>

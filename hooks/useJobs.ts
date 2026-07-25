@@ -5,7 +5,10 @@ export type Job = {
   company: string;
   jobTitle: string;
   status: "saved" | "applied" | "interview" | "offer" | "rejected";
-  deadline?: string;
+  dateApplied?: string;
+  nextAction?: string;
+  nextActionDate?: string;
+  jobLink?: string;
   notes?: string;
 };
 
