@@ -13,18 +13,18 @@ export default function Navbar() {
   const { pathname } = useRouter(); //const router = useRouter(); const pathname = router.pathname;
 
   return (
-    <nav className="flex items-center justify-between bg-card-bg px-6 py-4 shadow-md backdrop-blur">
-      <Link href="/" className="text-xl font-bold text-sage-dark">
+    <nav className="flex items-center justify-between bg-card-bg px-4 py-3 shadow-md backdrop-blur sm:px-6 sm:py-4">
+      <Link href="/" className="shrink-0 text-xl font-bold text-sage-dark">
         JobTracker
       </Link>
-      <div className="space-x-1">
+      <div className="flex items-center gap-0.5 sm:gap-1">
         {links.map((link) => {
           const active = pathname === link.href;
           return (
             <Link
               key={link.href}
               href={link.href}
-              className={`rounded-2xl px-3 py-1.5 text-sm transition ${
+              className={`whitespace-nowrap rounded-2xl px-2 py-1 text-[11px] transition sm:px-3 sm:py-1.5 sm:text-sm ${
                 active
                   ? "bg-sage-dark text-white font-semibold"
                   : "text-sage-mid hover:text-sage-dark opacity-80"
