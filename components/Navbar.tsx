@@ -12,7 +12,7 @@ export default function Navbar() {
   const { pathname } = useRouter();
 
   return (
-    <nav className="flex items-center justify-between bg-card-bg px-4 py-3 font-['Space_Grotesk',sans-serif] shadow-md backdrop-blur sm:px-6 sm:py-4">
+    <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between bg-card-bg px-4 py-3 font-['Space_Grotesk',sans-serif] shadow-md sm:px-6 sm:py-4">
       <Link href="/" className="shrink-0 font-['Fraunces',serif] text-xl font-semibold text-sage-dark">
         JobTracker
       </Link>

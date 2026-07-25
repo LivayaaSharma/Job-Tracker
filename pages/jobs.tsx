@@ -21,6 +21,7 @@ function daysOverdue(dateStr: string): number {
 export default function JobsPage() {
   const { jobs, deleteJob, updateJob } = useJobs();
   const [editingJob, setEditingJob] = useState<Job | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const applied = jobs.filter((j) => j.status === "applied").length;
   const interviews = jobs.filter((j) => j.status === "interview").length;
@@ -28,8 +29,29 @@ export default function JobsPage() {
     (j) => j.nextActionDate && daysOverdue(j.nextActionDate) > 0
   ).length;
 
+  const allSelected = jobs.length > 0 && selected.size === jobs.length;
+
+  function toggleOne(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleAll() {
+    if (allSelected) setSelected(new Set());
+    else setSelected(new Set(jobs.map((j) => j.id)));
+  }
+
+  function deleteSelected() {
+    selected.forEach((id) => deleteJob(id));
+    setSelected(new Set());
+  }
+
   return (
-    <main className="min-h-screen bg-page-bg font-['Space_Grotesk',sans-serif]">
+    <main className="min-h-screen bg-page-bg pt-14 font-['Space_Grotesk',sans-serif]">
       <Navbar />
       <div className="mx-auto max-w-7xl px-6">
         <Header title="Your Jobs" subtitle="Track every application in one place." />
@@ -44,7 +66,7 @@ export default function JobsPage() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className={`rounded-xl bg-card-bg p-4 shadow-sm ring-1 ring-sage-mid/20 ${
+              className={`rounded-xl bg-card-bg p-4 shadow-sm ring-1 ring-black/5 ${
                 stat.highlight ? "text-pink-bold" : "text-ink"
               }`}
             >
@@ -54,16 +76,43 @@ export default function JobsPage() {
           ))}
         </div>
 
+        {/* Bulk action bar */}
+        {selected.size > 0 && (
+          <div className="mt-4 flex items-center gap-3 rounded-lg bg-sage-light px-4 py-2">
+            <span className="text-sm text-ink font-medium">{selected.size} selected</span>
+            <button
+              onClick={deleteSelected}
+              className="rounded-lg bg-pink-bold px-3 py-1 text-xs font-semibold text-white transition hover:opacity-80"
+            >
+              Delete selected
+            </button>
+            <button
+              onClick={() => setSelected(new Set())}
+              className="text-xs text-muted hover:text-ink transition"
+            >
+              Clear
+            </button>
+          </div>
+        )}
+
         {/* Table */}
         {jobs.length === 0 ? (
           <div className="mt-10 rounded-xl bg-card-bg p-8 text-center text-muted shadow">
             No jobs yet. Add one to get started!
           </div>
         ) : (
-          <div className="mt-6 overflow-x-auto rounded-xl bg-card-bg font-['Space_Grotesk',sans-serif] shadow-sm ring-1 ring-sage-mid/20">
+          <div className="mt-6 overflow-x-auto rounded-xl bg-card-bg font-['Space_Grotesk',sans-serif] shadow-sm ring-1 ring-black/5">
             <table className="min-w-[900px] w-full text-left text-sm lg:min-w-0">
               <thead>
-                <tr className="border-b border-sage-mid/20 text-xs text-pink-bold">
+                <tr className="border-b border-black/5 text-xs text-pink-bold">
+                  <th className="px-3 py-3">
+                    <input
+                      type="checkbox"
+                      checked={allSelected}
+                      onChange={toggleAll}
+                      className="h-3.5 w-3.5 cursor-pointer"
+                    />
+                  </th>
                   <th className="px-4 py-3 font-medium">Company / Role</th>
                   <th className="px-4 py-3 font-medium">Status</th>
                   <th className="px-4 py-3 font-medium">Applied</th>
@@ -79,17 +128,26 @@ export default function JobsPage() {
                   const overdueDays =
                     job.nextActionDate ? daysOverdue(job.nextActionDate) : 0;
                   const isOverdue = overdueDays > 0;
+                  const isSelected = selected.has(job.id);
 
                   return (
                     <tr
                       key={job.id}
                       onClick={() => setEditingJob(job)}
-                      className={`border-b border-sage-mid/20 last:border-0 cursor-pointer transition hover:bg-sage-light/30 ${
+                      className={`border-b border-black/5 last:border-0 cursor-pointer transition hover:bg-sage-light/30 ${
                         isOverdue ? "bg-status-rejected-bg/40" : ""
-                      }`}
+                      } ${isSelected ? "bg-sage-light/50" : ""}`}
                     >
+                      <td className="px-3 py-3" onClick={(e) => e.stopPropagation()}>
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleOne(job.id)}
+                          className="h-3.5 w-3.5 cursor-pointer"
+                        />
+                      </td>
                       <td className="px-4 py-3">
-                        <p className="font-['Fraunces',serif] text-lg font-semibold leading-tight text-ink">{job.company}</p>
+                        <p className="font-['Fraunces',serif] text-sm font-semibold text-ink">{job.company}</p>
                         <p className="text-xs text-sage-mid">{job.jobTitle}</p>
                       </td>
                       <td className="px-4 py-3">

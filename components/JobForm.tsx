@@ -27,7 +27,7 @@ export default function JobForm({ onSave }: JobFormProps) {
   const [status, setStatus] = React.useState<Job["status"]>("saved");
 
   return (
-    <section className="mt-6 flex justify-center">
+    <section className="mt-6 mb-14 flex justify-center">
       <form
         aria-labelledby="job-form-title"
         onSubmit={(e) => {
