@@ -11,8 +11,8 @@ export default function JobCard({ job, onDelete }: JobCardProps) {
       <h4 className="text-sm font-semibold text-ink truncate">{job.company}</h4>
       <p className="text-xs text-sage-mid truncate">{job.jobTitle}</p>
 
-      {job.deadline && (
-        <p className="mt-2 text-xs text-muted">Due: {job.deadline}</p>
+      {job.nextActionDate && (
+        <p className="mt-2 text-xs text-muted">Next: {job.nextActionDate}</p>
       )}
 
       <button
