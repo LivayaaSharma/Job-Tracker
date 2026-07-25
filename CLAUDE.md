@@ -61,12 +61,13 @@ A 2nd-year CS student who wants to learn properly. Previously paused this projec
 
 ### Layout
 - **Nav:** Top bar, white background, logo left, links right. Active link has sage dark color + 2px bottom border
-- **Main view:** Kanban board — columns for each status (Saved, Applied, Interview, Offer, Rejected)
-- **Density:** Tight — minimize padding, fit more cards on screen. People mass-apply and need to see lots of jobs at once. But don't make it cluttered — use whitespace between columns, not within cards
-- **Cards:** Compact. Show company, job title, date. Status indicated by which column they're in, not repeated on the card
+- **Main view:** Table — one row per job. Summary bar above with counts (Tracked, Applied, Interviews, Overdue)
+- **Table columns:** Company/Role | Status (colored pill) | Date Applied | Next Action | Next Action Date | Job Link | Delete
+- **Density:** Tight — minimize padding, fit more jobs on screen. People mass-apply and need to see everything at a glance
+- **Overdue rows:** Subtle pink highlight, date replaced with "N days overdue" text in pink-bold
 
 ### Job data fields
-Each job tracks: Company, Job Title, Status, Deadline, Notes, Salary Range, Location, Job Post URL, Contact Person
+Each job tracks: Company, Job Title, Status, Date Applied, Next Action, Next Action Date, Job Link, Notes
 
 ### Empty states
 Use the pixel mascot character with a speech bubble. Friendly and encouraging tone ("No applications yet — let's change that!"). The mascot adds personality and makes empty columns feel intentional, not broken.
