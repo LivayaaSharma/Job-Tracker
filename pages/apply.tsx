@@ -14,7 +14,7 @@ export default function ApplyPage() {
       <Head>
         <title>Apply • JobTracker</title>
       </Head>
-      <main className="min-h-screen bg-page-bg font-sans">
+      <main className="min-h-screen bg-page-bg font-['Space_Grotesk',sans-serif]">
         <Navbar />
         <div className="mx-auto max-w-3xl px-6">
           <Header

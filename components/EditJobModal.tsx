@@ -28,7 +28,7 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 font-['Space_Grotesk',sans-serif]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -49,11 +49,11 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
           });
           onClose();
         }}
-        className="w-full max-w-3xl space-y-6 rounded-2xl bg-white p-8 shadow-xl"
+        className="w-full max-w-3xl space-y-6 rounded-xl bg-card-bg p-8 shadow-xl"
       >
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-ink">Edit Job</h3>
-          <button type="button" onClick={onClose} className="text-muted hover:text-ink text-xl leading-none">
+          <button type="button" onClick={onClose} className="text-xl leading-none text-muted hover:text-ink">
             &times;
           </button>
         </div>
@@ -65,7 +65,7 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
             <input
               id="edit-company" name="company" type="text" required
               defaultValue={job.company}
-              className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
+              className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
             />
           </div>
           <div>
@@ -73,14 +73,14 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
             <input
               id="edit-jobTitle" name="jobTitle" type="text" required
               defaultValue={job.jobTitle}
-              className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
+              className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
             />
           </div>
         </div>
 
         {/* Status pills */}
         <div>
-          <span className="block text-sm font-medium text-ink mb-2">Status</span>
+          <span className="mb-2 block text-sm font-medium text-ink">Status</span>
           <div className="flex flex-wrap gap-2">
             {STATUSES.map((s) => {
               const colors = STATUS_COLORS[s.value];
@@ -107,7 +107,7 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
             <input
               id="edit-dateApplied" name="dateApplied" type="date"
               defaultValue={job.dateApplied}
-              className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
+              className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
             />
           </div>
           <div>
@@ -115,7 +115,7 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
             <input
               id="edit-nextActionDate" name="nextActionDate" type="date"
               defaultValue={job.nextActionDate}
-              className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
+              className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
             />
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
             id="edit-nextAction" name="nextAction" type="text"
             defaultValue={job.nextAction}
             placeholder="e.g. Follow up, Prepare interview"
-            className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
+            className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
         </div>
 
@@ -138,7 +138,7 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
             id="edit-jobLink" name="jobLink" type="url"
             defaultValue={job.jobLink}
             placeholder="https://..."
-            className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
+            className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
         </div>
 
@@ -149,20 +149,20 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
             id="edit-notes" name="notes" rows={3}
             defaultValue={job.notes}
             placeholder="Optional notes"
-            className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink placeholder:text-muted focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
+            className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink placeholder:text-muted focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
         </div>
 
         <div className="flex gap-3">
           <button
             type="submit"
-            className="flex-1 rounded-2xl bg-sage-dark py-2 text-white transition hover:bg-sage-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-mid"
+            className="flex-1 rounded-lg bg-sage-dark py-2 text-page-bg transition hover:bg-sage-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-mid"
           >
             Save Changes
           </button>
           <button
             type="button" onClick={onClose}
-            className="rounded-2xl px-6 py-2 text-sm text-muted transition hover:text-ink"
+            className="rounded-lg px-6 py-2 text-sm text-muted transition hover:text-ink"
           >
             Cancel
           </button>

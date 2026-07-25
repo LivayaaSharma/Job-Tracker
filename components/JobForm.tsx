@@ -27,7 +27,7 @@ export default function JobForm({ onSave }: JobFormProps) {
   const [status, setStatus] = React.useState<Job["status"]>("saved");
 
   return (
-    <section className="mt-12 flex justify-center">
+    <section className="mt-6 flex justify-center">
       <form
         aria-labelledby="job-form-title"
         onSubmit={(e) => {
@@ -47,7 +47,7 @@ export default function JobForm({ onSave }: JobFormProps) {
           if (onSave) onSave(values);
           else console.log("JobForm submit:", values);
         }}
-        className="w-full max-w-3xl space-y-6 rounded-2xl bg-white p-8 shadow-lg"
+        className="w-full max-w-3xl space-y-6 rounded-xl bg-card-bg p-8 font-['Space_Grotesk',sans-serif] shadow-lg"
       >
         <h3 id="job-form-title" className="sr-only">
           Add a job application
@@ -65,7 +65,7 @@ export default function JobForm({ onSave }: JobFormProps) {
               type="text"
               required
               placeholder="e.g. Google"
-              className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink
+              className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink
                          focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
             />
           </div>
@@ -79,7 +79,7 @@ export default function JobForm({ onSave }: JobFormProps) {
               type="text"
               required
               placeholder="e.g. Frontend Intern"
-              className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink
+              className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink
                          focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
             />
           </div>
@@ -87,7 +87,7 @@ export default function JobForm({ onSave }: JobFormProps) {
 
         {/* Row 2: Status pills */}
         <div>
-          <span className="block text-sm font-medium text-ink mb-2">Status</span>
+          <span className="mb-2 block text-sm font-medium text-ink">Status</span>
           <div className="flex flex-wrap gap-2">
             {STATUSES.map((s) => {
               const colors = STATUS_COLORS[s.value];
@@ -118,7 +118,7 @@ export default function JobForm({ onSave }: JobFormProps) {
               id="dateApplied"
               name="dateApplied"
               type="date"
-              className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink
+              className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink
                          focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
             />
           </div>
@@ -130,7 +130,7 @@ export default function JobForm({ onSave }: JobFormProps) {
               id="nextActionDate"
               name="nextActionDate"
               type="date"
-              className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink
+              className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink
                          focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
             />
           </div>
@@ -146,7 +146,7 @@ export default function JobForm({ onSave }: JobFormProps) {
             name="nextAction"
             type="text"
             placeholder="e.g. Follow up, Prepare interview"
-            className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink
+            className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink
                        focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
         </div>
@@ -161,7 +161,7 @@ export default function JobForm({ onSave }: JobFormProps) {
             name="jobLink"
             type="url"
             placeholder="https://..."
-            className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink
+            className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink
                        focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
         </div>
@@ -176,7 +176,7 @@ export default function JobForm({ onSave }: JobFormProps) {
             name="notes"
             rows={3}
             placeholder="Optional notes"
-            className="mt-1 w-full rounded-lg border border-gray-300 p-2 text-ink
+            className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink
                        placeholder:text-muted
                        focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
           />
@@ -184,7 +184,7 @@ export default function JobForm({ onSave }: JobFormProps) {
 
         <button
           type="submit"
-          className="w-full rounded-2xl bg-sage-dark py-2 text-white transition
+          className="w-full rounded-lg bg-sage-dark py-2 text-page-bg transition
                      hover:bg-sage-mid
                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-mid"
         >
