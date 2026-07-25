@@ -29,13 +29,13 @@ export default function JobsPage() {
   ).length;
 
   return (
-    <main className="min-h-screen bg-page-bg">
+    <main className="min-h-screen bg-page-bg font-['Space_Grotesk',sans-serif]">
       <Navbar />
       <div className="mx-auto max-w-7xl px-6">
         <Header title="Your Jobs" subtitle="Track every application in one place." />
 
         {/* Summary bar */}
-        <div className="mt-6 grid grid-cols-4 gap-4">
+        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
           {[
             { label: "Tracked", value: jobs.length },
             { label: "Applied", value: applied },
@@ -44,7 +44,7 @@ export default function JobsPage() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className={`rounded-xl bg-card-bg p-4 shadow-sm ring-1 ring-black/5 ${
+              className={`rounded-xl bg-card-bg p-4 shadow-sm ring-1 ring-sage-mid/20 ${
                 stat.highlight ? "text-pink-bold" : "text-ink"
               }`}
             >
@@ -56,14 +56,14 @@ export default function JobsPage() {
 
         {/* Table */}
         {jobs.length === 0 ? (
-          <div className="mt-10 rounded-2xl bg-white p-8 text-center text-muted shadow">
+          <div className="mt-10 rounded-xl bg-card-bg p-8 text-center text-muted shadow">
             No jobs yet. Add one to get started!
           </div>
         ) : (
-          <div className="mt-6 overflow-x-auto rounded-xl bg-card-bg shadow-sm ring-1 ring-black/5">
-            <table className="w-full text-left text-sm">
+          <div className="mt-6 overflow-x-auto rounded-xl bg-card-bg font-['Space_Grotesk',sans-serif] shadow-sm ring-1 ring-sage-mid/20">
+            <table className="min-w-[900px] w-full text-left text-sm lg:min-w-0">
               <thead>
-                <tr className="border-b border-black/5 text-xs text-pink-bold">
+                <tr className="border-b border-sage-mid/20 text-xs text-pink-bold">
                   <th className="px-4 py-3 font-medium">Company / Role</th>
                   <th className="px-4 py-3 font-medium">Status</th>
                   <th className="px-4 py-3 font-medium">Applied</th>
@@ -84,12 +84,12 @@ export default function JobsPage() {
                     <tr
                       key={job.id}
                       onClick={() => setEditingJob(job)}
-                      className={`border-b border-black/5 last:border-0 cursor-pointer transition hover:bg-sage-light/30 ${
+                      className={`border-b border-sage-mid/20 last:border-0 cursor-pointer transition hover:bg-sage-light/30 ${
                         isOverdue ? "bg-status-rejected-bg/40" : ""
                       }`}
                     >
                       <td className="px-4 py-3">
-                        <p className="font-semibold text-ink">{job.company}</p>
+                        <p className="font-['Fraunces',serif] text-lg font-semibold leading-tight text-ink">{job.company}</p>
                         <p className="text-xs text-sage-mid">{job.jobTitle}</p>
                       </td>
                       <td className="px-4 py-3">
