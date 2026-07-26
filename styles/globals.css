@@ -38,3 +38,16 @@ body {
 input[type="checkbox"] {
   accent-color: #4A5E3A;
 }
+
+.marquee-track {
+  overflow: hidden;
+}
+
+.marquee-scroll {
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}

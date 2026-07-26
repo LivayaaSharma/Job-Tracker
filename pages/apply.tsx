@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import JobForm from "@/components/JobForm";
 import { useJobs } from "@/hooks/useJobs";
 
@@ -14,12 +15,12 @@ export default function ApplyPage() {
       <Head>
         <title>Apply • JobTracker</title>
       </Head>
-      <main className="min-h-screen bg-page-bg pt-14 font-['Space_Grotesk',sans-serif]">
+      <main className="flex min-h-screen flex-col bg-page-bg pt-14 font-['Space_Grotesk',sans-serif]">
         <Navbar />
-        <div className="mx-auto max-w-3xl px-6">
+        <div className="mx-auto w-full max-w-4xl flex-1 px-4 sm:px-5">
           <Header
-            title="Start an application"
-            subtitle="Save the role, analyze the JD, and set your follow-ups."
+            title="Add application"
+            subtitle="Enter the details now. Update status and next steps as you go."
           />
           <JobForm
             onSave={(values) => {
@@ -27,6 +28,9 @@ export default function ApplyPage() {
               router.push("/jobs");
             }}
           />
+        </div>
+        <div className="mt-10">
+          <Footer />
         </div>
       </main>
     </>

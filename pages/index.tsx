@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { motion, useReducedMotion } from "framer-motion";
 
 type StatusTone = "applied" | "interview" | "saved";
@@ -59,21 +60,21 @@ const previewRows: PreviewRow[] = [
 
 const features: Feature[] = [
   {
-    eyebrow: "01 — STAY ORIENTED",
+    eyebrow: "01 — APPLICATIONS",
     title: "See every application at a glance.",
-    body: "Keep the company, role, status, date, and your next move in one calm table.",
+    body: "Company, role, status, date applied, and next steps — all in one table. No switching between tabs or documents.",
     kind: "tracking",
   },
   {
-    eyebrow: "02 — KEEP MOVING",
+    eyebrow: "02 — FOLLOW-UPS",
     title: "Know what needs attention next.",
-    body: "Next-action reminders make overdue follow-ups visible before they disappear into another tab.",
+    body: "Each application tracks a next action and due date. Overdue items are flagged so nothing slips through.",
     kind: "reminders",
   },
   {
-    eyebrow: "03 — KEEP IT CURRENT",
-    title: "Edit without losing your flow.",
-    body: "One-click editing opens an inline modal so details stay fresh without sending you somewhere else.",
+    eyebrow: "03 — EDITING",
+    title: "Edit without leaving the page.",
+    body: "Click any row to update details in a modal. No page reloads, no lost context.",
     kind: "editing",
   },
 ];
@@ -88,10 +89,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>JobTracker — Stop losing track of applications</title>
+        <title>JobTracker — Track every job application in one place</title>
         <meta
           name="description"
-          content="A calmer way to keep your job applications, next actions, and follow-ups in one place."
+          content="Save applications, interviews, deadlines, and follow-ups in one simple workspace."
         />
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
@@ -102,16 +103,16 @@ export default function Home() {
       <main id="main-content" className="min-h-screen overflow-x-hidden bg-page-bg pt-14 font-['Space_Grotesk',sans-serif] text-ink">
         <Navbar />
 
-        <section className="mx-auto max-w-6xl px-6 pb-24 pt-24 text-center sm:px-8 sm:pt-32 lg:pb-36 lg:pt-40">
+        <section className="mx-auto max-w-[1400px] px-4 pb-24 pt-24 text-center sm:px-5 sm:pt-32 lg:pb-36 lg:pt-40">
           <Reveal>
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-sage-mid">
-              A calmer way to keep moving
-            </p>
             <h1 className="font-['Fraunces',serif] text-6xl font-semibold leading-[0.95] tracking-[-0.05em] text-ink sm:text-8xl lg:text-9xl">
               JobTracker
             </h1>
             <p className="mx-auto mt-7 max-w-xl text-xl font-medium tracking-[-0.02em] text-sage-dark sm:text-2xl">
-              Stop losing track of applications
+              Track every job application in one place.
+            </p>
+            <p className="mx-auto mt-3 max-w-lg text-sm text-muted sm:text-base">
+              Save applications, interviews, deadlines, notes, and follow-ups in one simple workspace.
             </p>
             <Link
               href="/jobs"
@@ -122,17 +123,17 @@ export default function Home() {
           </Reveal>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 pb-28 sm:px-8 lg:pb-40">
+        <section className="mx-auto max-w-[1400px] px-4 pb-28 sm:px-5 lg:pb-40">
           <Reveal>
             <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sage-mid">Product preview</p>
                 <h2 className="mt-3 max-w-xl font-['Fraunces',serif] text-4xl font-semibold leading-tight tracking-[-0.035em] text-ink sm:text-5xl">
-                  See the whole search in one place.
+                  Your job search, organized.
                 </h2>
               </div>
               <p className="max-w-xs text-sm leading-6 text-muted sm:text-right">
-                A simple view of what is active, what is moving, and what can wait.
+                Applications, statuses, deadlines, and next steps — all visible at once.
               </p>
             </div>
 
@@ -192,8 +193,8 @@ export default function Home() {
           </Reveal>
         </section>
 
-        <section className="border-y border-sage-mid bg-sage-light px-6 py-24 sm:px-8 lg:py-32">
-          <Reveal className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:gap-24">
+        <section className="border-y border-sage-mid bg-sage-light px-4 py-24 sm:px-5 lg:py-32">
+          <Reveal className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:gap-24">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sage-mid">The problem</p>
               <h2 className="mt-4 max-w-xl font-['Fraunces',serif] text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-ink sm:text-5xl">
@@ -201,18 +202,18 @@ export default function Home() {
               </h2>
             </div>
             <div className="space-y-5 border-l border-sage-mid pl-6 text-base leading-7 text-sage-dark sm:text-lg">
-              <p>One tab for the job post, one for the resume, and four more you forgot to close.</p>
-              <p>Follow-ups get buried. Notes end up in scattered documents.</p>
-              <p>You spend more energy remembering the search than doing the search.</p>
+              <p>Applications, interview notes, deadlines, follow-ups, and resumes add up quickly.</p>
+              <p>Most people track them across spreadsheets, browser tabs, and scattered documents.</p>
+              <p>JobTracker keeps everything together so you always know what&apos;s next.</p>
             </div>
           </Reveal>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 py-28 sm:px-8 lg:py-40">
+        <section className="mx-auto max-w-[1400px] px-4 py-28 sm:px-5 lg:py-40">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sage-mid">Made for momentum</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sage-mid">How it works</p>
             <h2 className="mt-4 max-w-2xl font-['Fraunces',serif] text-4xl font-semibold leading-tight tracking-[-0.035em] text-ink sm:text-5xl">
-              The useful stuff, without the noise.
+              Three things, done well.
             </h2>
           </Reveal>
 
@@ -237,14 +238,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-t border-sage-mid bg-pink-light px-6 py-28 sm:px-8 lg:py-36">
+        <section className="border-t border-sage-mid bg-pink-light px-4 py-28 sm:px-5 lg:py-36">
           <Reveal className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-pink-bold">A small personal project</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-pink-bold">Product philosophy</p>
             <h2 className="mt-5 font-['Fraunces',serif] text-4xl font-semibold leading-tight tracking-[-0.035em] text-ink sm:text-6xl">
-              Built by a student tired of spreadsheets.
+              Designed around how people actually apply for jobs.
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-sage-dark sm:text-lg">
-              Keep the busywork small, keep your next step visible, and give yourself more room to focus on the work that matters.
+              Job applications rarely happen in one sitting. Saving the role, preparing for interviews, following up, and tracking deadlines all happen over time. JobTracker keeps those pieces together — applications, statuses, deadlines, notes, and follow-ups — without unnecessary complexity.
             </p>
             <Link
               href="/apply"
@@ -254,6 +255,8 @@ export default function Home() {
             </Link>
           </Reveal>
         </section>
+
+        <Footer />
       </main>
     </>
   );

@@ -5,7 +5,6 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/apply", label: "Add a Job" },
   { href: "/jobs", label: "View Jobs" },
-  { href: "/about", label: "About" },
 ];
 
 export default function Navbar() {

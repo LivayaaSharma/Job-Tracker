@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import EditJobModal from "@/components/EditJobModal";
 import { useJobs } from "@/hooks/useJobs";
 import type { Job } from "@/hooks/useJobs";
@@ -51,10 +52,10 @@ export default function JobsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-page-bg pt-14 font-['Space_Grotesk',sans-serif]">
+    <main className="flex min-h-screen flex-col bg-page-bg pt-14 font-['Space_Grotesk',sans-serif]">
       <Navbar />
-      <div className="mx-auto max-w-7xl px-6">
-        <Header title="Your Jobs" subtitle="Track every application in one place." />
+      <div className="mx-auto w-full max-w-[1400px] flex-1 px-4 sm:px-5">
+        <Header title="Applications" subtitle="Track every application in one place." />
 
         {/* Summary bar */}
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -66,7 +67,7 @@ export default function JobsPage() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className={`rounded-xl bg-card-bg p-4 shadow-sm ring-1 ring-black/5 ${
+              className={`rounded-xl bg-card-bg p-4 shadow-md ring-1 ring-black/10 ${
                 stat.highlight ? "text-pink-bold" : "text-ink"
               }`}
             >
@@ -101,7 +102,7 @@ export default function JobsPage() {
             No jobs yet. Add one to get started!
           </div>
         ) : (
-          <div className="mt-6 overflow-x-auto rounded-xl bg-card-bg font-['Space_Grotesk',sans-serif] shadow-sm ring-1 ring-black/5">
+          <div className="mt-6 overflow-x-auto rounded-xl bg-card-bg font-['Space_Grotesk',sans-serif] shadow-md ring-1 ring-black/10">
             <table className="min-w-[900px] w-full text-left text-sm lg:min-w-0">
               <thead>
                 <tr className="border-b border-black/5 text-xs text-pink-bold">
@@ -223,6 +224,10 @@ export default function JobsPage() {
             </table>
           </div>
         )}
+      </div>
+
+      <div className="mt-10">
+        <Footer />
       </div>
 
       {editingJob && (
