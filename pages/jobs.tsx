@@ -210,6 +210,11 @@ export default function JobsPage() {
                             onClick={(e) => {
                               e.stopPropagation();
                               deleteJob(job.id);
+                              setSelected(prev => {
+                                const next = new Set(prev);
+                                next.delete(job.id);
+                                return next;
+                              });
                             }}
                             className="text-xs text-muted hover:text-pink-bold transition"
                           >
