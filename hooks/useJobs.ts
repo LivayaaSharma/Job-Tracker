@@ -82,9 +82,10 @@ export function useJobs() {
   }, [fetchJobs]);
 
   async function addJob(entry: Omit<Job, "id">) {
+    if (!user) return;
     const { error } = await supabase
       .from("jobs")
-      .insert(jobToRow(entry));
+      .insert({ ...jobToRow(entry), user_id: user.id });
 
     if (error) {
       console.error("Failed to add job:", error.message);
