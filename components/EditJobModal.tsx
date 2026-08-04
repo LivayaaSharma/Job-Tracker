@@ -19,7 +19,7 @@ const STATUS_COLORS: Record<Job["status"], { bg: string; text: string; ring: str
 
 type EditJobModalProps = {
   job: Job;
-  onSave: (id: string, updates: Partial<Job>) => void;
+  onSave: (id: string, updates: Partial<Job>) => void | Promise<void>;
   onClose: () => void;
 };
 

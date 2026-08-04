@@ -24,11 +24,11 @@ function daysOverdue(dateStr: string): number {
 export default function JobsPage() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const { jobs, deleteJob, updateJob } = useJobs();
+  const { jobs, loading: jobsLoading, deleteJob, updateJob } = useJobs();
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
-  if (loading) return null;
+  if (loading || jobsLoading) return null;
   if (!user) {
     router.push("/login");
     return null;

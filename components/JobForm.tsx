@@ -20,7 +20,7 @@ const STATUS_COLORS: Record<Job["status"], { bg: string; text: string; ring: str
 };
 
 type JobFormProps = {
-  onSave?: (values: JobFormValues) => void;
+  onSave?: (values: JobFormValues) => void | Promise<void>;
 };
 
 export default function JobForm({ onSave }: JobFormProps) {

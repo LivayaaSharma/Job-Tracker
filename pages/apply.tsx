@@ -31,8 +31,8 @@ export default function ApplyPage() {
             subtitle="Enter the details now. Update status and next steps as you go."
           />
           <JobForm
-            onSave={(values) => {
-              addJob(values);
+            onSave={async (values) => {
+              await addJob(values);
               router.push("/jobs");
             }}
           />
