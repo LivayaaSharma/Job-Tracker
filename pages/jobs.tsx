@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import EditJobModal from "@/components/EditJobModal";
 import { useJobs } from "@/hooks/useJobs";
 import type { Job } from "@/hooks/useJobs";
+import { useAuth } from "@/lib/auth";
 
 const STATUS_COLORS: Record<Job["status"], { bg: string; text: string }> = {
   saved: { bg: "bg-status-saved-bg", text: "text-status-saved-text" },
@@ -20,9 +22,17 @@ function daysOverdue(dateStr: string): number {
 }
 
 export default function JobsPage() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
   const { jobs, deleteJob, updateJob } = useJobs();
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
+
+  if (loading) return null;
+  if (!user) {
+    router.push("/login");
+    return null;
+  }
 
   const applied = jobs.filter((j) => j.status === "applied").length;
   const interviews = jobs.filter((j) => j.status === "interview").length;

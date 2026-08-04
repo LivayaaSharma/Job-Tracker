@@ -5,10 +5,18 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JobForm from "@/components/JobForm";
 import { useJobs } from "@/hooks/useJobs";
+import { useAuth } from "@/lib/auth";
 
 export default function ApplyPage() {
+  const { user, loading } = useAuth();
   const { addJob } = useJobs();
   const router = useRouter();
+
+  if (loading) return null;
+  if (!user) {
+    router.push("/login");
+    return null;
+  }
 
   return (
     <>
