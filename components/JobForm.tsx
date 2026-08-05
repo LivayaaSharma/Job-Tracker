@@ -25,13 +25,16 @@ type JobFormProps = {
 
 export default function JobForm({ onSave }: JobFormProps) {
   const [status, setStatus] = React.useState<Job["status"]>("saved");
+  const [saving, setSaving] = React.useState(false);
 
   return (
     <section className="mt-6 mb-14 flex justify-center">
       <form
         aria-labelledby="job-form-title"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
+          if (saving) return;
+          setSaving(true);
           const form = e.currentTarget;
           const data = Object.fromEntries(new FormData(form).entries());
           const values: JobFormValues = {
@@ -44,8 +47,9 @@ export default function JobForm({ onSave }: JobFormProps) {
             jobLink: (data.jobLink as string) || "",
             notes: (data.notes as string) || "",
           };
-          if (onSave) onSave(values);
+          if (onSave) await onSave(values);
           else console.log("JobForm submit:", values);
+          setSaving(false);
         }}
         className="w-full max-w-3xl space-y-6 rounded-xl bg-card-bg p-8 font-['Space_Grotesk',sans-serif] shadow-lg"
       >
@@ -184,11 +188,12 @@ export default function JobForm({ onSave }: JobFormProps) {
 
         <button
           type="submit"
+          disabled={saving}
           className="w-full rounded-lg bg-sage-dark py-2 text-page-bg transition
-                     hover:bg-sage-mid
+                     hover:bg-sage-mid disabled:opacity-50
                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-mid"
         >
-          Save and Breathe
+          {saving ? "Saving..." : "Save and Breathe"}
         </button>
       </form>
     </section>

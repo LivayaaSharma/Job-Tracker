@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { supabase } from "@/lib/supabase";
@@ -14,11 +14,11 @@ export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  if (loading) return null;
-  if (user) {
-    router.push("/jobs");
-    return null;
-  }
+  useEffect(() => {
+    if (!loading && user) router.push("/jobs");
+  }, [loading, user, router]);
+
+  if (loading || user) return null;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

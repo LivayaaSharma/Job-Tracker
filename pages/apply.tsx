@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar";
@@ -12,11 +13,11 @@ export default function ApplyPage() {
   const { addJob } = useJobs();
   const router = useRouter();
 
-  if (loading) return null;
-  if (!user) {
-    router.push("/login");
-    return null;
-  }
+  useEffect(() => {
+    if (!loading && !user) router.push("/login");
+  }, [loading, user, router]);
+
+  if (loading || !user) return null;
 
   return (
     <>

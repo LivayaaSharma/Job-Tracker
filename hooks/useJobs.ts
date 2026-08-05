@@ -95,6 +95,7 @@ export function useJobs() {
   }
 
   async function deleteJob(id: string) {
+    if (!user) return;
     const { error } = await supabase
       .from("jobs")
       .delete()
@@ -108,6 +109,7 @@ export function useJobs() {
   }
 
   async function updateJob(id: string, updates: Partial<Job>) {
+    if (!user) return;
     const rowUpdates: Record<string, unknown> = {};
     if (updates.company !== undefined) rowUpdates.company = updates.company;
     if (updates.jobTitle !== undefined) rowUpdates.job_title = updates.jobTitle;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
@@ -28,11 +28,11 @@ export default function JobsPage() {
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
-  if (loading || jobsLoading) return null;
-  if (!user) {
-    router.push("/login");
-    return null;
-  }
+  useEffect(() => {
+    if (!loading && !user) router.push("/login");
+  }, [loading, user, router]);
+
+  if (loading || jobsLoading || !user) return null;
 
   const applied = jobs.filter((j) => j.status === "applied").length;
   const interviews = jobs.filter((j) => j.status === "interview").length;
@@ -56,8 +56,8 @@ export default function JobsPage() {
     else setSelected(new Set(jobs.map((j) => j.id)));
   }
 
-  function deleteSelected() {
-    selected.forEach((id) => deleteJob(id));
+  async function deleteSelected() {
+    await Promise.all([...selected].map((id) => deleteJob(id)));
     setSelected(new Set());
   }
 
@@ -106,138 +106,204 @@ export default function JobsPage() {
           </div>
         )}
 
-        {/* Table */}
+        {/* Jobs list */}
         {jobs.length === 0 ? (
           <div className="mt-10 rounded-xl bg-card-bg p-8 text-center text-muted shadow">
             No jobs yet. Add one to get started!
           </div>
         ) : (
-          <div className="mt-6 overflow-x-auto rounded-xl bg-card-bg font-['Space_Grotesk',sans-serif] shadow-md ring-1 ring-black/10">
-            <table className="min-w-[900px] w-full text-left text-sm lg:min-w-0">
-              <thead>
-                <tr className="border-b border-black/5 text-xs text-pink-bold">
-                  <th className="px-3 py-3">
+          <>
+            {/* Mobile cards — compact for density */}
+            <div className="mt-4 space-y-1.5 md:hidden">
+              {jobs.map((job) => {
+                const colors = STATUS_COLORS[job.status];
+                const overdueDays =
+                  job.nextActionDate ? daysOverdue(job.nextActionDate) : 0;
+                const isOverdue = overdueDays > 0;
+                const isSelected = selected.has(job.id);
+
+                return (
+                  <div
+                    key={job.id}
+                    onClick={() => setEditingJob(job)}
+                    className={`flex cursor-pointer items-center gap-2 rounded-lg bg-card-bg px-3 py-2.5 shadow-sm ring-1 ring-black/10 transition active:scale-[0.99] ${
+                      isOverdue ? "ring-pink-bold/30" : ""
+                    } ${isSelected ? "bg-sage-light/50" : ""}`}
+                  >
                     <input
                       type="checkbox"
-                      checked={allSelected}
-                      onChange={toggleAll}
-                      className="h-3.5 w-3.5 cursor-pointer"
+                      checked={isSelected}
+                      onChange={() => toggleOne(job.id)}
+                      onClick={(e) => e.stopPropagation()}
+                      className="h-3.5 w-3.5 shrink-0 cursor-pointer"
                     />
-                  </th>
-                  <th className="px-4 py-3 font-medium">Company / Role</th>
-                  <th className="px-4 py-3 font-medium">Status</th>
-                  <th className="px-4 py-3 font-medium">Applied</th>
-                  <th className="px-4 py-3 font-medium">Next Action</th>
-                  <th className="px-4 py-3 font-medium">Next Date</th>
-                  <th className="px-4 py-3 font-medium">Link</th>
-                  <th className="px-4 py-3 font-medium"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {jobs.map((job) => {
-                  const colors = STATUS_COLORS[job.status];
-                  const overdueDays =
-                    job.nextActionDate ? daysOverdue(job.nextActionDate) : 0;
-                  const isOverdue = overdueDays > 0;
-                  const isSelected = selected.has(job.id);
-
-                  return (
-                    <tr
-                      key={job.id}
-                      onClick={() => setEditingJob(job)}
-                      className={`border-b border-black/5 last:border-0 cursor-pointer transition hover:bg-sage-light/30 ${
-                        isOverdue ? "bg-status-rejected-bg/40" : ""
-                      } ${isSelected ? "bg-sage-light/50" : ""}`}
-                    >
-                      <td className="px-3 py-3" onClick={(e) => e.stopPropagation()}>
-                        <input
-                          type="checkbox"
-                          checked={isSelected}
-                          onChange={() => toggleOne(job.id)}
-                          className="h-3.5 w-3.5 cursor-pointer"
-                        />
-                      </td>
-                      <td className="px-4 py-3">
-                        <p className="font-['Fraunces',serif] text-sm font-semibold text-ink">{job.company}</p>
-                        <p className="text-xs text-sage-mid">{job.jobTitle}</p>
-                      </td>
-                      <td className="px-4 py-3">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="truncate font-['Fraunces',serif] text-sm font-semibold text-ink">
+                          {job.company}
+                        </p>
                         <span
-                          className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${colors.bg} ${colors.text}`}
+                          className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${colors.bg} ${colors.text}`}
                         >
                           {job.status.charAt(0).toUpperCase() + job.status.slice(1)}
                         </span>
-                      </td>
-                      <td className="px-4 py-3 text-muted">
-                        {job.dateApplied
-                          ? new Date(job.dateApplied).toLocaleDateString("en-US", {
-                              month: "short",
-                              day: "numeric",
-                            })
-                          : "—"}
-                      </td>
-                      <td className={`px-4 py-3 ${isOverdue ? "text-pink-bold" : "text-ink"}`}>
-                        {job.nextAction || "—"}
-                      </td>
-                      <td className={`px-4 py-3 ${isOverdue ? "text-pink-bold" : "text-muted"}`}>
-                        {isOverdue
-                          ? `${overdueDays} day${overdueDays === 1 ? "" : "s"} overdue`
-                          : job.nextActionDate
-                            ? new Date(job.nextActionDate).toLocaleDateString("en-US", {
+                      </div>
+                      <div className="flex items-center gap-2 text-[11px] text-muted">
+                        <span className="truncate">{job.jobTitle}</span>
+                        {isOverdue && (
+                          <span className="shrink-0 text-pink-bold">
+                            {overdueDays}d overdue
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteJob(job.id);
+                        setSelected((prev) => {
+                          const next = new Set(prev);
+                          next.delete(job.id);
+                          return next;
+                        });
+                      }}
+                      className="shrink-0 text-[11px] text-muted hover:text-pink-bold transition"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Desktop table */}
+            <div className="mt-6 hidden overflow-x-auto rounded-xl bg-card-bg font-['Space_Grotesk',sans-serif] shadow-md ring-1 ring-black/10 md:block">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="border-b border-black/5 text-xs text-pink-bold">
+                    <th className="px-3 py-3">
+                      <input
+                        type="checkbox"
+                        checked={allSelected}
+                        onChange={toggleAll}
+                        className="h-3.5 w-3.5 cursor-pointer"
+                      />
+                    </th>
+                    <th className="px-4 py-3 font-medium">Company / Role</th>
+                    <th className="px-4 py-3 font-medium">Status</th>
+                    <th className="hidden px-4 py-3 font-medium lg:table-cell">Applied</th>
+                    <th className="hidden px-4 py-3 font-medium lg:table-cell">Next Action</th>
+                    <th className="hidden px-4 py-3 font-medium lg:table-cell">Next Date</th>
+                    <th className="hidden px-4 py-3 font-medium lg:table-cell">Link</th>
+                    <th className="px-4 py-3 font-medium"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {jobs.map((job) => {
+                    const colors = STATUS_COLORS[job.status];
+                    const overdueDays =
+                      job.nextActionDate ? daysOverdue(job.nextActionDate) : 0;
+                    const isOverdue = overdueDays > 0;
+                    const isSelected = selected.has(job.id);
+
+                    return (
+                      <tr
+                        key={job.id}
+                        onClick={() => setEditingJob(job)}
+                        className={`border-b border-black/5 last:border-0 cursor-pointer transition hover:bg-sage-light/30 ${
+                          isOverdue ? "bg-status-rejected-bg/40" : ""
+                        } ${isSelected ? "bg-sage-light/50" : ""}`}
+                      >
+                        <td className="px-3 py-3" onClick={(e) => e.stopPropagation()}>
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => toggleOne(job.id)}
+                            className="h-3.5 w-3.5 cursor-pointer"
+                          />
+                        </td>
+                        <td className="px-4 py-3">
+                          <p className="font-['Fraunces',serif] text-sm font-semibold text-ink">{job.company}</p>
+                          <p className="text-xs text-sage-mid">{job.jobTitle}</p>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${colors.bg} ${colors.text}`}
+                          >
+                            {job.status.charAt(0).toUpperCase() + job.status.slice(1)}
+                          </span>
+                        </td>
+                        <td className="hidden px-4 py-3 text-muted lg:table-cell">
+                          {job.dateApplied
+                            ? new Date(job.dateApplied).toLocaleDateString("en-US", {
                                 month: "short",
                                 day: "numeric",
                               })
                             : "—"}
-                      </td>
-                      <td className="px-4 py-3">
-                        {job.jobLink ? (
-                          <a
-                            href={job.jobLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="text-xs text-sage-dark underline underline-offset-2 hover:text-sage-mid"
-                          >
-                            View
-                          </a>
-                        ) : (
-                          <span className="text-muted">—</span>
-                        )}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="flex gap-2">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setEditingJob(job);
-                            }}
-                            className="text-xs text-muted hover:text-sage-dark transition"
-                          >
-                            Edit
-                          </button>
-                          <span className="text-muted">·</span>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              deleteJob(job.id);
-                              setSelected(prev => {
-                                const next = new Set(prev);
-                                next.delete(job.id);
-                                return next;
-                              });
-                            }}
-                            className="text-xs text-muted hover:text-pink-bold transition"
-                          >
-                            Delete
-                          </button>
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                        </td>
+                        <td className={`hidden px-4 py-3 lg:table-cell ${isOverdue ? "text-pink-bold" : "text-ink"}`}>
+                          {job.nextAction || "—"}
+                        </td>
+                        <td className={`hidden px-4 py-3 lg:table-cell ${isOverdue ? "text-pink-bold" : "text-muted"}`}>
+                          {isOverdue
+                            ? `${overdueDays} day${overdueDays === 1 ? "" : "s"} overdue`
+                            : job.nextActionDate
+                              ? new Date(job.nextActionDate).toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                })
+                              : "—"}
+                        </td>
+                        <td className="hidden px-4 py-3 lg:table-cell">
+                          {job.jobLink && /^https?:\/\//i.test(job.jobLink) ? (
+                            <a
+                              href={job.jobLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="text-xs text-sage-dark underline underline-offset-2 hover:text-sage-mid"
+                            >
+                              View
+                            </a>
+                          ) : (
+                            <span className="text-muted">—</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="flex gap-2">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingJob(job);
+                              }}
+                              className="text-xs text-muted hover:text-sage-dark transition"
+                            >
+                              Edit
+                            </button>
+                            <span className="text-muted">·</span>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                deleteJob(job.id);
+                                setSelected((prev) => {
+                                  const next = new Set(prev);
+                                  next.delete(job.id);
+                                  return next;
+                                });
+                              }}
+                              className="text-xs text-muted hover:text-pink-bold transition"
+                            >
+                              Delete
+                            </button>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
 
@@ -247,6 +313,7 @@ export default function JobsPage() {
 
       {editingJob && (
         <EditJobModal
+          key={editingJob.id}
           job={editingJob}
           onSave={(id, updates) => {
             updateJob(id, updates);
