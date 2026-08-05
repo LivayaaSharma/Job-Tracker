@@ -113,8 +113,19 @@ export default function JobsPage() {
           </div>
         ) : (
           <>
+            {/* Mobile: select-all toggle */}
+            <div className="mt-4 flex items-center gap-2 px-1 md:hidden">
+              <input
+                type="checkbox"
+                checked={allSelected}
+                onChange={toggleAll}
+                className="h-3.5 w-3.5 cursor-pointer"
+              />
+              <span className="text-xs text-muted">Select all</span>
+            </div>
+
             {/* Mobile cards — compact for density */}
-            <div className="mt-4 space-y-1.5 md:hidden">
+            <div className="mt-1.5 space-y-1.5 md:hidden">
               {jobs.map((job) => {
                 const colors = STATUS_COLORS[job.status];
                 const overdueDays =
