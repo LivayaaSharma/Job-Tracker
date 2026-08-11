@@ -53,6 +53,18 @@ export default function Navbar() {
             );
           })}
           {user && (
+            <Link
+              href="/settings"
+              className={`whitespace-nowrap rounded-2xl px-2 py-1 text-[11px] font-['Space_Grotesk',sans-serif] transition sm:px-3 sm:py-1.5 sm:text-sm ${
+                router.pathname === "/settings"
+                  ? "bg-sage-dark text-page-bg font-semibold"
+                  : "text-sage-mid hover:text-sage-dark opacity-80"
+              }`}
+            >
+              Settings
+            </Link>
+          )}
+          {user && (
             <div className="relative ml-1 sm:ml-2" ref={menuRef}>
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
