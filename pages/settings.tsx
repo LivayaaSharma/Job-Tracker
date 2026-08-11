@@ -24,13 +24,19 @@ export default function SettingsPage() {
   const [newKey, setNewKey] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [revoking, setRevoking] = useState<string | null>(null);
+  const [remindersOn, setRemindersOn] = useState(true);
+  const [togglingReminders, setTogglingReminders] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) router.push("/login");
   }, [loading, user, router]);
 
   useEffect(() => {
-    if (user) fetchKeys();
+    if (user) {
+      fetchKeys();
+      const pref = user.user_metadata?.email_reminders;
+      setRemindersOn(pref !== false);
+    }
   }, [user]);
 
   async function getAuthHeader() {
@@ -86,6 +92,16 @@ export default function SettingsPage() {
     setRevoking(null);
   }
 
+  async function toggleReminders() {
+    setTogglingReminders(true);
+    const next = !remindersOn;
+    const { error } = await supabase.auth.updateUser({
+      data: { email_reminders: next },
+    });
+    if (!error) setRemindersOn(next);
+    setTogglingReminders(false);
+  }
+
   function copyKey() {
     if (newKey) {
       navigator.clipboard.writeText(newKey);
@@ -104,6 +120,31 @@ export default function SettingsPage() {
       <Navbar />
       <div className="mx-auto w-full max-w-2xl flex-1 px-4 sm:px-5">
         <Header title="Settings" subtitle="Manage your API keys for external integrations." />
+
+        {/* Email reminders */}
+        <section className="mt-8 flex items-center justify-between rounded-xl bg-card-bg p-6 shadow-md ring-1 ring-black/10">
+          <div>
+            <h3 className="font-['Fraunces',serif] text-lg font-semibold text-ink">
+              Overdue Reminders
+            </h3>
+            <p className="mt-1 text-sm text-muted">
+              Get a daily email when you have overdue actions.
+            </p>
+          </div>
+          <button
+            onClick={toggleReminders}
+            disabled={togglingReminders}
+            className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${
+              remindersOn ? "bg-sage-dark" : "bg-black/10"
+            }`}
+          >
+            <span
+              className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform ${
+                remindersOn ? "translate-x-5" : "translate-x-0"
+              }`}
+            />
+          </button>
+        </section>
 
         {/* Generate new key */}
         <section className="mt-8 rounded-xl bg-card-bg p-6 shadow-md ring-1 ring-black/10">
