@@ -24,13 +24,19 @@ export default function SettingsPage() {
   const [newKey, setNewKey] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [revoking, setRevoking] = useState<string | null>(null);
+  const [remindersOn, setRemindersOn] = useState(true);
+  const [togglingReminders, setTogglingReminders] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) router.push("/login");
   }, [loading, user, router]);
 
   useEffect(() => {
-    if (user) fetchKeys();
+    if (user) {
+      fetchKeys();
+      const pref = user.user_metadata?.email_reminders;
+      setRemindersOn(pref !== false);
+    }
   }, [user]);
 
   async function getAuthHeader() {
@@ -86,6 +92,16 @@ export default function SettingsPage() {
     setRevoking(null);
   }
 
+  async function toggleReminders() {
+    setTogglingReminders(true);
+    const next = !remindersOn;
+    const { error } = await supabase.auth.updateUser({
+      data: { email_reminders: next },
+    });
+    if (!error) setRemindersOn(next);
+    setTogglingReminders(false);
+  }
+
   function copyKey() {
     if (newKey) {
       navigator.clipboard.writeText(newKey);
@@ -104,6 +120,31 @@ export default function SettingsPage() {
       <Navbar />
       <div className="mx-auto w-full max-w-2xl flex-1 px-4 sm:px-5">
         <Header title="Settings" subtitle="Manage your API keys for external integrations." />
+
+        {/* Email reminders */}
+        <section className="mt-8 flex items-center justify-between rounded-xl bg-card-bg p-6 shadow-md ring-1 ring-black/10">
+          <div>
+            <h3 className="font-['Fraunces',serif] text-lg font-semibold text-ink">
+              Overdue Reminders
+            </h3>
+            <p className="mt-1 text-sm text-muted">
+              Get a daily email when you have overdue actions.
+            </p>
+          </div>
+          <button
+            onClick={toggleReminders}
+            disabled={togglingReminders}
+            className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${
+              remindersOn ? "bg-sage-dark" : "bg-black/10"
+            }`}
+          >
+            <span
+              className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform ${
+                remindersOn ? "translate-x-5" : "translate-x-0"
+              }`}
+            />
+          </button>
+        </section>
 
         {/* Generate new key */}
         <section className="mt-8 rounded-xl bg-card-bg p-6 shadow-md ring-1 ring-black/10">
@@ -245,29 +286,47 @@ export default function SettingsPage() {
             How to use your API key
           </h3>
           <p className="mt-2 text-sm text-muted">
-            Your scripts, AI agents, or custom tools can send job data to your tracker
-            using the request format below. This works with anything you build or set up yourself.
-            It does not connect to platforms like LinkedIn or Indeed directly.
+            Paste this into your script, AI agent, or any tool that can make HTTP requests.
+            Replace <code className="font-medium text-ink">PASTE_YOUR_API_KEY_HERE</code> with
+            the key you copied above.
           </p>
-          <pre className="mt-3 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
-{`POST /api/jobs
-Authorization: Bearer PASTE_YOUR_API_KEY_HERE
-Content-Type: application/json
 
-{
-  "company": "Google",
-  "jobTitle": "SWE Intern",
-  "status": "applied"
-}`}
+          {/* curl example */}
+          <p className="mt-4 text-xs font-medium text-ink">curl (terminal)</p>
+          <pre className="mt-1 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
+{`curl -X POST ${typeof window !== "undefined" ? window.location.origin : "https://your-app.vercel.app"}/api/jobs \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer PASTE_YOUR_API_KEY_HERE" \\
+  -d '{
+    "company": "Google",
+    "jobTitle": "SWE Intern",
+    "status": "applied"
+  }'`}
           </pre>
-          <div className="mt-3 space-y-1.5 text-xs text-muted">
+
+          {/* Python example */}
+          <p className="mt-4 text-xs font-medium text-ink">Python</p>
+          <pre className="mt-1 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
+{`import requests
+
+requests.post(
+    "${typeof window !== "undefined" ? window.location.origin : "https://your-app.vercel.app"}/api/jobs",
+    headers={"Authorization": "Bearer PASTE_YOUR_API_KEY_HERE"},
+    json={
+        "company": "Google",
+        "jobTitle": "SWE Intern",
+        "status": "applied"
+    }
+)`}
+          </pre>
+
+          <div className="mt-4 space-y-1.5 text-xs text-muted">
             <p>
-              Replace <code className="font-medium text-ink">PASTE_YOUR_API_KEY_HERE</code> with
-              the key you copied above. The job details (company, title, etc.) will be
-              filled in automatically by whatever tool you connect.
+              Your tool fills in the job details automatically. The example values
+              above (Google, SWE Intern) are just placeholders.
             </p>
             <p>
-              <span className="font-medium text-ink">Required:</span>{" "}
+              <span className="font-medium text-ink">Required fields:</span>{" "}
               <code className="text-ink">company</code>, <code className="text-ink">jobTitle</code>
             </p>
             <p>
@@ -278,6 +337,10 @@ Content-Type: application/json
               <code className="text-ink">nextActionDate</code>,{" "}
               <code className="text-ink">jobLink</code>,{" "}
               <code className="text-ink">notes</code>
+            </p>
+            <p className="mt-2 text-muted">
+              This is a developer API. It works with your own tools and scripts,
+              not directly with platforms like LinkedIn or Indeed.
             </p>
           </div>
         </section>
