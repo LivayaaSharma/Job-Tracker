@@ -245,11 +245,13 @@ export default function SettingsPage() {
             How to use your API key
           </h3>
           <p className="mt-2 text-sm text-muted">
-            Send a POST request to add jobs to your tracker from any external tool:
+            Your scripts, AI agents, or custom tools can send job data to your tracker
+            using the request format below. This works with anything you build or set up yourself.
+            It does not connect to platforms like LinkedIn or Indeed directly.
           </p>
           <pre className="mt-3 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
 {`POST /api/jobs
-Authorization: Bearer YOUR_API_KEY
+Authorization: Bearer PASTE_YOUR_API_KEY_HERE
 Content-Type: application/json
 
 {
@@ -258,12 +260,26 @@ Content-Type: application/json
   "status": "applied"
 }`}
           </pre>
-          <p className="mt-3 text-xs text-muted">
-            Required fields: <code className="text-ink">company</code>, <code className="text-ink">jobTitle</code>.
-            Optional: <code className="text-ink">status</code>, <code className="text-ink">dateApplied</code>,{" "}
-            <code className="text-ink">nextAction</code>, <code className="text-ink">nextActionDate</code>,{" "}
-            <code className="text-ink">jobLink</code>, <code className="text-ink">notes</code>.
-          </p>
+          <div className="mt-3 space-y-1.5 text-xs text-muted">
+            <p>
+              Replace <code className="font-medium text-ink">PASTE_YOUR_API_KEY_HERE</code> with
+              the key you copied above. The job details (company, title, etc.) will be
+              filled in automatically by whatever tool you connect.
+            </p>
+            <p>
+              <span className="font-medium text-ink">Required:</span>{" "}
+              <code className="text-ink">company</code>, <code className="text-ink">jobTitle</code>
+            </p>
+            <p>
+              <span className="font-medium text-ink">Optional:</span>{" "}
+              <code className="text-ink">status</code> (defaults to &quot;applied&quot;),{" "}
+              <code className="text-ink">dateApplied</code> (defaults to today),{" "}
+              <code className="text-ink">nextAction</code>,{" "}
+              <code className="text-ink">nextActionDate</code>,{" "}
+              <code className="text-ink">jobLink</code>,{" "}
+              <code className="text-ink">notes</code>
+            </p>
+          </div>
         </section>
       </div>
 
