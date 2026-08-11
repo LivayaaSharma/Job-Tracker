@@ -7,7 +7,7 @@ import { useAuth } from "@/lib/auth";
 export default function LoginPage() {
   const router = useRouter();
   const { user, loading } = useAuth();
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [mode, setMode] = useState<"login" | "signup" | "forgot">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,13 +20,28 @@ export default function LoginPage() {
 
   if (loading || user) return null;
 
+  function switchMode(next: "login" | "signup" | "forgot") {
+    setMode(next);
+    setError("");
+    setMessage("");
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setMessage("");
     setSubmitting(true);
 
-    if (isSignUp) {
+    if (mode === "forgot") {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) {
+        setError(error.message);
+      } else {
+        setMessage("Check your email for a password reset link.");
+      }
+    } else if (mode === "signup") {
       const { error } = await supabase.auth.signUp({ email, password });
       if (error) {
         setError(error.message);
@@ -51,7 +66,9 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>{isSignUp ? "Sign Up" : "Log In"} • JobTracker</title>
+        <title>
+          {mode === "signup" ? "Sign Up" : mode === "forgot" ? "Reset Password" : "Log In"} • JobTracker
+        </title>
       </Head>
       <main className="flex min-h-screen items-center justify-center bg-page-bg font-['Space_Grotesk',sans-serif]">
         <form
@@ -59,7 +76,7 @@ export default function LoginPage() {
           className="w-full max-w-md space-y-5 rounded-xl bg-card-bg p-8 shadow-lg ring-1 ring-black/10"
         >
           <h1 className="text-center font-['Fraunces',serif] text-2xl font-bold text-ink">
-            {isSignUp ? "Create Account" : "Welcome Back"}
+            {mode === "signup" ? "Create Account" : mode === "forgot" ? "Reset Password" : "Welcome Back"}
           </h1>
 
           {error && (
@@ -88,21 +105,23 @@ export default function LoginPage() {
             />
           </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-ink">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              minLength={8}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink
-                         focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
-            />
-          </div>
+          {mode !== "forgot" && (
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-ink">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                required
+                minLength={8}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-black/10 p-2 text-ink
+                           focus:border-sage-mid focus:outline-none focus:ring-2 focus:ring-sage-mid"
+              />
+            </div>
+          )}
 
           <button
             type="submit"
@@ -113,25 +132,49 @@ export default function LoginPage() {
           >
             {submitting
               ? "Please wait..."
-              : isSignUp
+              : mode === "signup"
                 ? "Sign Up"
-                : "Log In"}
+                : mode === "forgot"
+                  ? "Send Reset Link"
+                  : "Log In"}
           </button>
 
-          <p className="text-center text-sm text-muted">
-            {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-            <button
-              type="button"
-              onClick={() => {
-                setIsSignUp(!isSignUp);
-                setError("");
-                setMessage("");
-              }}
-              className="text-sage-dark underline underline-offset-2 hover:text-sage-mid"
-            >
-              {isSignUp ? "Log in" : "Sign up"}
-            </button>
-          </p>
+          <div className="space-y-1 text-center text-sm text-muted">
+            {mode === "login" && (
+              <>
+                <p>
+                  Don&apos;t have an account?{" "}
+                  <button type="button" onClick={() => switchMode("signup")}
+                    className="text-sage-dark underline underline-offset-2 hover:text-sage-mid">
+                    Sign up
+                  </button>
+                </p>
+                <p>
+                  <button type="button" onClick={() => switchMode("forgot")}
+                    className="text-sage-dark underline underline-offset-2 hover:text-sage-mid">
+                    Forgot password?
+                  </button>
+                </p>
+              </>
+            )}
+            {mode === "signup" && (
+              <p>
+                Already have an account?{" "}
+                <button type="button" onClick={() => switchMode("login")}
+                  className="text-sage-dark underline underline-offset-2 hover:text-sage-mid">
+                  Log in
+                </button>
+              </p>
+            )}
+            {mode === "forgot" && (
+              <p>
+                <button type="button" onClick={() => switchMode("login")}
+                  className="text-sage-dark underline underline-offset-2 hover:text-sage-mid">
+                  Back to login
+                </button>
+              </p>
+            )}
+          </div>
         </form>
       </main>
     </>

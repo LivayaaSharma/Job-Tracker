@@ -245,29 +245,47 @@ export default function SettingsPage() {
             How to use your API key
           </h3>
           <p className="mt-2 text-sm text-muted">
-            Your scripts, AI agents, or custom tools can send job data to your tracker
-            using the request format below. This works with anything you build or set up yourself.
-            It does not connect to platforms like LinkedIn or Indeed directly.
+            Paste this into your script, AI agent, or any tool that can make HTTP requests.
+            Replace <code className="font-medium text-ink">PASTE_YOUR_API_KEY_HERE</code> with
+            the key you copied above.
           </p>
-          <pre className="mt-3 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
-{`POST /api/jobs
-Authorization: Bearer PASTE_YOUR_API_KEY_HERE
-Content-Type: application/json
 
-{
-  "company": "Google",
-  "jobTitle": "SWE Intern",
-  "status": "applied"
-}`}
+          {/* curl example */}
+          <p className="mt-4 text-xs font-medium text-ink">curl (terminal)</p>
+          <pre className="mt-1 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
+{`curl -X POST ${typeof window !== "undefined" ? window.location.origin : "https://your-app.vercel.app"}/api/jobs \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer PASTE_YOUR_API_KEY_HERE" \\
+  -d '{
+    "company": "Google",
+    "jobTitle": "SWE Intern",
+    "status": "applied"
+  }'`}
           </pre>
-          <div className="mt-3 space-y-1.5 text-xs text-muted">
+
+          {/* Python example */}
+          <p className="mt-4 text-xs font-medium text-ink">Python</p>
+          <pre className="mt-1 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
+{`import requests
+
+requests.post(
+    "${typeof window !== "undefined" ? window.location.origin : "https://your-app.vercel.app"}/api/jobs",
+    headers={"Authorization": "Bearer PASTE_YOUR_API_KEY_HERE"},
+    json={
+        "company": "Google",
+        "jobTitle": "SWE Intern",
+        "status": "applied"
+    }
+)`}
+          </pre>
+
+          <div className="mt-4 space-y-1.5 text-xs text-muted">
             <p>
-              Replace <code className="font-medium text-ink">PASTE_YOUR_API_KEY_HERE</code> with
-              the key you copied above. The job details (company, title, etc.) will be
-              filled in automatically by whatever tool you connect.
+              Your tool fills in the job details automatically. The example values
+              above (Google, SWE Intern) are just placeholders.
             </p>
             <p>
-              <span className="font-medium text-ink">Required:</span>{" "}
+              <span className="font-medium text-ink">Required fields:</span>{" "}
               <code className="text-ink">company</code>, <code className="text-ink">jobTitle</code>
             </p>
             <p>
@@ -278,6 +296,10 @@ Content-Type: application/json
               <code className="text-ink">nextActionDate</code>,{" "}
               <code className="text-ink">jobLink</code>,{" "}
               <code className="text-ink">notes</code>
+            </p>
+            <p className="mt-2 text-muted">
+              This is a developer API. It works with your own tools and scripts,
+              not directly with platforms like LinkedIn or Indeed.
             </p>
           </div>
         </section>
