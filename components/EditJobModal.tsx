@@ -1,4 +1,7 @@
 import * as React from "react";
+import Image from "next/image";
+import confetti from "canvas-confetti";
+import { useReducedMotion } from "framer-motion";
 import type { Job } from "@/hooks/useJobs";
 
 const STATUSES: { value: Job["status"]; label: string }[] = [
@@ -25,6 +28,48 @@ type EditJobModalProps = {
 
 export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps) {
   const [status, setStatus] = React.useState<Job["status"]>(job.status);
+  const [celebrating, setCelebrating] = React.useState<"offer" | "interview" | null>(null);
+  const shouldReduce = useReducedMotion();
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+
+    const updates: Partial<Job> = {
+      company: (data.company as string) || "",
+      jobTitle: (data.jobTitle as string) || "",
+      status,
+      dateApplied: (data.dateApplied as string) || "",
+      nextAction: (data.nextAction as string) || "",
+      nextActionDate: (data.nextActionDate as string) || "",
+      jobLink: (data.jobLink as string) || "",
+      notes: (data.notes as string) || "",
+    };
+
+    onSave(job.id, updates);
+
+    const statusChanged = status !== job.status;
+
+    if (statusChanged && status === "offer" && !shouldReduce) {
+      setCelebrating("offer");
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ["#4A5E3A", "#D4537E", "#F0997B", "#DAE5D0", "#F4C0D1"],
+      });
+      setTimeout(onClose, 1800);
+      return;
+    }
+
+    if (statusChanged && status === "interview" && !shouldReduce) {
+      setCelebrating("interview");
+      setTimeout(onClose, 1200);
+      return;
+    }
+
+    onClose();
+  }
 
   return (
     <div
@@ -34,22 +79,10 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
       }}
     >
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-          onSave(job.id, {
-            company: (data.company as string) || "",
-            jobTitle: (data.jobTitle as string) || "",
-            status,
-            dateApplied: (data.dateApplied as string) || "",
-            nextAction: (data.nextAction as string) || "",
-            nextActionDate: (data.nextActionDate as string) || "",
-            jobLink: (data.jobLink as string) || "",
-            notes: (data.notes as string) || "",
-          });
-          onClose();
-        }}
-        className="w-full max-w-3xl space-y-6 rounded-xl bg-card-bg p-8 shadow-xl"
+        onSubmit={handleSubmit}
+        className={`w-full max-w-3xl space-y-6 rounded-xl bg-card-bg p-8 shadow-xl transition-transform duration-500 ${
+          celebrating === "interview" ? "scale-[1.02]" : ""
+        }`}
       >
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-ink">Edit Job</h3>
@@ -81,7 +114,7 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
         {/* Status pills */}
         <div>
           <span className="mb-2 block text-sm font-medium text-ink">Status</span>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {STATUSES.map((s) => {
               const colors = STATUS_COLORS[s.value];
               const selected = status === s.value;
@@ -97,6 +130,15 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
                 </button>
               );
             })}
+            {celebrating === "interview" && (
+              <Image
+                src="/favicon-512x512.png"
+                alt=""
+                width={20}
+                height={20}
+                className="animate-mascot-pulse"
+              />
+            )}
           </div>
         </div>
 

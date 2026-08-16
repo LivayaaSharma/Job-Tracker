@@ -41,6 +41,12 @@ export default function JobsPage() {
     (j) => j.nextActionDate && daysOverdue(j.nextActionDate) > 0
   ).length;
 
+  const sortedJobs = jobs.slice().sort((a, b) => {
+    const aRej = a.status === "rejected" ? 1 : 0;
+    const bRej = b.status === "rejected" ? 1 : 0;
+    return aRej - bRej;
+  });
+
   const allSelected = jobs.length > 0 && selected.size === jobs.length;
 
   function toggleOne(id: string) {
@@ -127,7 +133,7 @@ export default function JobsPage() {
 
             {/* Mobile cards — compact for density */}
             <div className="mt-1.5 space-y-1.5 md:hidden">
-              {jobs.map((job) => {
+              {sortedJobs.map((job) => {
                 const colors = STATUS_COLORS[job.status];
                 const overdueDays =
                   job.nextActionDate ? daysOverdue(job.nextActionDate) : 0;
@@ -211,7 +217,7 @@ export default function JobsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {jobs.map((job) => {
+                  {sortedJobs.map((job) => {
                     const colors = STATUS_COLORS[job.status];
                     const overdueDays =
                       job.nextActionDate ? daysOverdue(job.nextActionDate) : 0;
@@ -338,7 +344,6 @@ export default function JobsPage() {
           job={editingJob}
           onSave={(id, updates) => {
             updateJob(id, updates);
-            setEditingJob(null);
           }}
           onClose={() => setEditingJob(null)}
         />
