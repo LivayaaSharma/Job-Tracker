@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -321,6 +322,15 @@ export default function JobsPage() {
       <div className="mt-10">
         <Footer />
       </div>
+
+      {/* Mobile floating add button */}
+      <Link
+        href="/apply"
+        className="fixed bottom-6 right-6 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-sage-dark text-xl text-page-bg shadow-lg transition hover:bg-sage-mid"
+        aria-label="Add a job"
+      >
+        +
+      </Link>
 
       {editingJob && (
         <EditJobModal

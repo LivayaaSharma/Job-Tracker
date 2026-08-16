@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -60,19 +61,19 @@ const previewRows: PreviewRow[] = [
 
 const features: Feature[] = [
   {
-    eyebrow: "01 — APPLICATIONS",
+    eyebrow: "01 APPLICATIONS",
     title: "See every application at a glance.",
-    body: "Company, role, status, date applied, and next steps — all in one table. No switching between tabs or documents.",
+    body: "Company, role, status, date applied, and next steps in one table. No switching between tabs or documents.",
     kind: "tracking",
   },
   {
-    eyebrow: "02 — FOLLOW-UPS",
-    title: "Know what needs attention next.",
-    body: "Each application tracks a next action and due date. Overdue items are flagged so nothing slips through.",
+    eyebrow: "02 FOLLOW-UPS",
+    title: "Never miss a follow-up.",
+    body: "Set a next action and due date on any application. When something is overdue, you get a daily email so nothing slips through.",
     kind: "reminders",
   },
   {
-    eyebrow: "03 — EDITING",
+    eyebrow: "03 EDITING",
     title: "Edit without leaving the page.",
     body: "Click any row to update details in a modal. No page reloads, no lost context.",
     kind: "editing",
@@ -89,10 +90,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>JobTracker — Track every job application in one place</title>
+        <title>JobTracker</title>
         <meta
           name="description"
-          content="Save applications, interviews, deadlines, and follow-ups in one simple workspace."
+          content="Track every job application in one place. Statuses, deadlines, follow-ups, and reminders."
         />
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
@@ -103,27 +104,85 @@ export default function Home() {
       <main id="main-content" className="min-h-screen overflow-x-hidden bg-page-bg pt-14 font-['Space_Grotesk',sans-serif] text-ink">
         <Navbar />
 
-        <section className="mx-auto max-w-[1400px] px-4 pb-24 pt-24 text-center sm:px-5 sm:pt-32 lg:pb-36 lg:pt-40">
-          <Reveal>
-            <h1 className="font-['Fraunces',serif] text-6xl font-semibold leading-[0.95] tracking-[-0.05em] text-ink sm:text-8xl lg:text-9xl">
-              JobTracker
-            </h1>
-            <p className="mx-auto mt-7 max-w-xl text-xl font-medium tracking-[-0.02em] text-sage-dark sm:text-2xl">
-              Track every job application in one place.
-            </p>
-            <p className="mx-auto mt-3 max-w-lg text-sm text-muted sm:text-base">
-              Save applications, interviews, deadlines, notes, and follow-ups in one simple workspace.
-            </p>
-            <Link
-              href="/jobs"
-              className="mt-9 inline-flex items-center gap-2 rounded-lg bg-sage-dark px-5 py-3 text-sm font-semibold text-page-bg transition hover:bg-sage-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-dark focus-visible:ring-offset-2 focus-visible:ring-offset-page-bg"
-            >
-              Start tracking <span aria-hidden="true">→</span>
-            </Link>
-          </Reveal>
+        {/* ── Hero ── */}
+        <section className="flex min-h-[calc(100svh-3.5rem)] items-center">
+          <div className="mx-auto grid w-full max-w-[1400px] items-center gap-12 px-4 py-16 sm:px-5 lg:grid-cols-2 lg:gap-20 lg:py-0">
+            <Reveal className="text-center lg:text-left">
+              <div className="mb-5 flex items-center justify-center gap-3 lg:justify-start">
+                <Image
+                  src="/favicon-512x512.png"
+                  alt=""
+                  width={52}
+                  height={52}
+                  className="drop-shadow-sm"
+                />
+                <span className="font-['Fraunces',serif] text-3xl font-semibold text-ink sm:text-4xl">
+                  JobTracker
+                </span>
+              </div>
+              <h1 className="font-['Fraunces',serif] text-4xl font-semibold leading-[1.08] tracking-[-0.04em] text-ink sm:text-5xl lg:text-6xl">
+                All your applications.<br />One place to check.
+              </h1>
+              <p className="mx-auto mt-5 max-w-lg text-base leading-7 text-muted sm:text-lg lg:mx-0">
+                Track statuses, deadlines, and follow-ups for every job you apply to. Add
+                them yourself, or connect your auto-apply tools, browser extensions,
+                or scripts so new applications show up automatically.
+              </p>
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
+                <Link
+                  href="/jobs"
+                  className="inline-flex items-center gap-2 rounded-lg bg-sage-dark px-6 py-3 text-sm font-semibold text-page-bg transition hover:bg-sage-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-dark focus-visible:ring-offset-2 focus-visible:ring-offset-page-bg"
+                >
+                  Start tracking
+                </Link>
+                <a
+                  href="#preview"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-sage-dark transition hover:text-sage-mid"
+                >
+                  See how it looks
+                  <span aria-hidden="true" className="text-xs">&#8595;</span>
+                </a>
+              </div>
+            </Reveal>
+
+            <SlideIn from="right" className="mx-auto hidden w-full max-w-md lg:block lg:max-w-none">
+              <div
+                aria-hidden="true"
+                className="rotate-1 rounded-xl border border-sage-mid bg-card-bg p-4 shadow-lg sm:p-5"
+              >
+                <div className="flex items-center justify-between border-b border-sage-light pb-3">
+                  <span className="text-sm font-semibold text-ink">Recent</span>
+                  <span className="rounded-full bg-sage-light px-2.5 py-1 text-[10px] font-semibold text-sage-dark">
+                    3 jobs
+                  </span>
+                </div>
+                <div className="mt-3 space-y-2">
+                  {[
+                    { company: "Northstar Labs", action: "Prep for interview", tone: "interview" as StatusTone, status: "Interview" },
+                    { company: "Good Kind Co.", action: "Follow up", tone: "applied" as StatusTone, status: "Applied" },
+                    { company: "Ritual Health", action: "Submit application", tone: "saved" as StatusTone, status: "Saved" },
+                  ].map((row) => (
+                    <div
+                      key={row.company}
+                      className="flex items-center gap-3 rounded-lg border border-sage-light/60 bg-page-bg px-3 py-2.5"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-xs font-semibold text-ink">{row.company}</p>
+                        <p className="truncate text-[11px] text-muted">{row.action}</p>
+                      </div>
+                      <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-medium ${statusClasses[row.tone]}`}>
+                        {row.status}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </SlideIn>
+          </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-4 pb-28 sm:px-5 lg:pb-40">
+        {/* ── Product Preview ── */}
+        <section id="preview" className="mx-auto max-w-[1400px] px-4 pb-20 sm:px-5 lg:pb-24">
           <Reveal>
             <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -133,7 +192,7 @@ export default function Home() {
                 </h2>
               </div>
               <p className="max-w-xs text-sm leading-6 text-muted sm:text-right">
-                Applications, statuses, deadlines, and next steps — all visible at once.
+                Applications, statuses, deadlines, and next steps, all visible at once.
               </p>
             </div>
 
@@ -148,7 +207,7 @@ export default function Home() {
                     3 active
                   </span>
                 </div>
- 
+
                 <div className="mt-4 overflow-x-auto">
                   <table className="min-w-full border-collapse text-left text-xs sm:text-sm">
                     <caption className="sr-only">A sample of three tracked job applications</caption>
@@ -193,7 +252,8 @@ export default function Home() {
           </Reveal>
         </section>
 
-        <section className="border-y border-sage-mid bg-sage-light px-4 py-24 sm:px-5 lg:py-32">
+        {/* ── The Problem ── */}
+        <section className="border-y border-sage-mid bg-sage-light px-4 py-16 sm:px-5 lg:py-20">
           <Reveal className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:gap-24">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sage-mid">The problem</p>
@@ -202,54 +262,139 @@ export default function Home() {
               </h2>
             </div>
             <div className="space-y-5 border-l border-sage-mid pl-6 text-base leading-7 text-sage-dark sm:text-lg">
-              <p>Applications, interview notes, deadlines, follow-ups, and resumes add up quickly.</p>
+              <p>Applications, interview notes, deadlines, and follow-ups add up quickly.</p>
               <p>Most people track them across spreadsheets, browser tabs, and scattered documents.</p>
               <p>JobTracker keeps everything together so you always know what&apos;s next.</p>
             </div>
           </Reveal>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-4 py-28 sm:px-5 lg:py-40">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sage-mid">How it works</p>
-            <h2 className="mt-4 max-w-2xl font-['Fraunces',serif] text-4xl font-semibold leading-tight tracking-[-0.035em] text-ink sm:text-5xl">
-              Three things, done well.
-            </h2>
-          </Reveal>
+        {/* ── Connect Your Tools ── */}
+        <section className="mx-auto max-w-[1400px] px-4 py-16 sm:px-5 lg:py-20">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+            <Reveal>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-pink-bold">
+                Connect your tools
+              </p>
+              <h2 className="mt-4 max-w-xl font-['Fraunces',serif] text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-ink sm:text-5xl">
+                Already auto-applying? Those jobs can land here too.
+              </h2>
+              <p className="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg">
+                If you use an auto-apply tool, a browser extension, or even your own
+                script to send out applications, you can connect it to JobTracker.
+                Every job it submits shows up in your table automatically.
+              </p>
+              <p className="mt-3 max-w-xl text-sm text-muted">
+                Set it up from your{" "}
+                <Link href="/settings" className="font-medium text-sage-dark underline underline-offset-2 hover:text-sage-mid">
+                  Settings
+                </Link>{" "}
+                page in a few clicks.
+              </p>
+            </Reveal>
 
-          <div className="mt-16 space-y-20 lg:mt-24 lg:space-y-28">
-            {features.map((feature, index) => {
-              const textFromLeft = index % 2 === 0;
-              return (
-                <div key={feature.kind} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
-                  <SlideIn from={textFromLeft ? "left" : "right"} className={index % 2 === 1 ? "lg:order-2" : "lg:order-1"}>
-                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-pink-bold">{feature.eyebrow}</p>
-                    <h3 className="mt-4 max-w-md font-['Fraunces',serif] text-3xl font-semibold leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
-                      {feature.title}
-                    </h3>
-                    <p className="mt-5 max-w-md text-base leading-7 text-muted sm:text-lg">{feature.body}</p>
-                  </SlideIn>
-                  <SlideIn from={textFromLeft ? "right" : "left"} delay={0.15} className={`mx-auto max-w-sm lg:max-w-none ${index % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}>
-                    <FeatureVisual kind={feature.kind} />
-                  </SlideIn>
+            <SlideIn from="right">
+              <div aria-hidden="true" className="rounded-xl border border-sage-mid bg-card-bg p-5 shadow-lg sm:p-7">
+                <div className="flex flex-col gap-4">
+                  {/* Flow steps */}
+                  <div className="flex items-stretch gap-3">
+                    <div className="flex flex-1 flex-col items-center rounded-xl border border-sage-light bg-page-bg p-4 text-center">
+                      <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-sage-light text-base">
+                        &#9881;
+                      </div>
+                      <p className="text-sm font-semibold text-ink">Your tool applies</p>
+                    </div>
+
+                    <div className="flex items-center text-xl text-pink-bold">&#8594;</div>
+
+                    <div className="flex flex-1 flex-col items-center rounded-xl border border-pink-light bg-pink-light/30 p-4 text-center">
+                      <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-pink-light text-base">
+                        &#9993;
+                      </div>
+                      <p className="text-sm font-semibold text-ink">Sends it here</p>
+                    </div>
+
+                    <div className="flex items-center text-xl text-pink-bold">&#8594;</div>
+
+                    <div className="flex flex-1 flex-col items-center rounded-xl border border-sage-mid bg-sage-light p-4 text-center">
+                      <Image
+                        src="/favicon-512x512.png"
+                        alt=""
+                        width={40}
+                        height={40}
+                        className="mb-2"
+                      />
+                      <p className="text-sm font-semibold text-ink">In your table</p>
+                    </div>
+                  </div>
+
+                  {/* Result preview */}
+                  <div className="rounded-lg border border-sage-light bg-page-bg px-4 py-3">
+                    <div className="flex items-center gap-3">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-semibold text-ink">Google</p>
+                        <p className="text-[11px] text-muted">SWE Intern</p>
+                      </div>
+                      <span className="rounded-full bg-status-applied-bg px-2.5 py-1 text-[10px] font-medium text-status-applied-text">
+                        Applied
+                      </span>
+                      <span className="text-[10px] text-muted">just now</span>
+                    </div>
+                  </div>
                 </div>
-              );
-            })}
+              </div>
+            </SlideIn>
           </div>
         </section>
 
-        <section className="border-t border-sage-mid bg-pink-light px-4 py-28 sm:px-5 lg:py-36">
-          <Reveal className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-pink-bold">Product philosophy</p>
-            <h2 className="mt-5 font-['Fraunces',serif] text-4xl font-semibold leading-tight tracking-[-0.035em] text-ink sm:text-6xl">
-              Designed around how people actually apply for jobs.
+        {/* ── How It Works ── */}
+        <section className="border-y border-sage-mid bg-sage-light px-4 py-16 sm:px-5 lg:py-20">
+          <div className="mx-auto max-w-[1400px]">
+            <Reveal>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sage-mid">How it works</p>
+              <h2 className="mt-4 max-w-2xl font-['Fraunces',serif] text-4xl font-semibold leading-tight tracking-[-0.035em] text-ink sm:text-5xl">
+                Simple on purpose.
+              </h2>
+            </Reveal>
+
+            <div className="mt-10 space-y-12 lg:mt-14 lg:space-y-16">
+              {features.map((feature, index) => {
+                const textFromLeft = index % 2 === 0;
+                return (
+                  <div key={feature.kind} className="grid items-center gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
+                    <SlideIn from={textFromLeft ? "left" : "right"} className={index % 2 === 1 ? "lg:order-2" : "lg:order-1"}>
+                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-pink-bold">{feature.eyebrow}</p>
+                      <h3 className="mt-3 max-w-md font-['Fraunces',serif] text-3xl font-semibold leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
+                        {feature.title}
+                      </h3>
+                      <p className="mt-4 max-w-md text-base leading-7 text-muted sm:text-lg">{feature.body}</p>
+                    </SlideIn>
+                    <SlideIn from={textFromLeft ? "right" : "left"} delay={0.15} className={`mx-auto w-full max-w-lg lg:max-w-none ${index % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}>
+                      <FeatureVisual kind={feature.kind} />
+                    </SlideIn>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── CTA ── */}
+        <section className="bg-pink-light px-4 py-16 sm:px-5 lg:py-20">
+          <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
+            <Image
+              src="/favicon-512x512.png"
+              alt=""
+              width={80}
+              height={80}
+              className="mb-6 drop-shadow-md"
+            />
+            <h2 className="font-['Fraunces',serif] text-3xl font-semibold leading-tight tracking-[-0.035em] text-ink sm:text-5xl">
+              Ready when you are.
             </h2>
-            <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-sage-dark sm:text-lg">
-              Job applications rarely happen in one sitting. Saving the role, preparing for interviews, following up, and tracking deadlines all happen over time. JobTracker keeps those pieces together — applications, statuses, deadlines, notes, and follow-ups — without unnecessary complexity.
-            </p>
             <Link
-              href="/apply"
-              className="mt-9 inline-flex items-center rounded-lg bg-sage-dark px-5 py-3 text-sm font-semibold text-page-bg transition hover:bg-sage-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-dark focus-visible:ring-offset-2 focus-visible:ring-offset-pink-light"
+              href="/jobs"
+              className="mt-8 inline-flex items-center gap-2 rounded-lg bg-sage-dark px-6 py-3 text-sm font-semibold text-page-bg transition hover:bg-sage-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-dark focus-visible:ring-offset-2 focus-visible:ring-offset-pink-light"
             >
               Start tracking
             </Link>
@@ -314,8 +459,8 @@ function FeatureVisual({ kind }: { kind: FeatureKind }) {
 
   if (kind === "reminders") {
     return (
-      <div aria-hidden="true" className="rounded-xl border border-sage-mid bg-sage-light p-5 sm:p-7">
-        <div className="flex items-center justify-between border-b border-sage-mid pb-4">
+      <div aria-hidden="true" className="rounded-xl border border-sage-mid bg-card-bg p-5 sm:p-7">
+        <div className="flex items-center justify-between border-b border-sage-light pb-4">
           <span className="text-sm font-semibold text-ink">Next actions</span>
           <span className="text-xs font-medium text-sage-mid">This week</span>
         </div>
@@ -335,7 +480,7 @@ function FeatureVisual({ kind }: { kind: FeatureKind }) {
     <div aria-hidden="true" className="rounded-xl border border-pink-bold bg-card-bg p-5 shadow-lg sm:p-7">
       <div className="flex items-center justify-between border-b border-pink-light pb-4">
         <span className="text-sm font-semibold text-ink">Edit application</span>
-        <span className="text-xs text-pink-bold">×</span>
+        <span className="text-xs text-pink-bold">&times;</span>
       </div>
       <div className="mt-5 space-y-4">
         <div>
