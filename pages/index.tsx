@@ -125,7 +125,7 @@ export default function Home() {
               </h1>
               <p className="mx-auto mt-5 max-w-lg text-base leading-7 text-muted sm:text-lg lg:mx-0">
                 Track statuses, deadlines, and follow-ups for every job you apply to. Add
-                them yourself, or connect your auto-apply tools, browser extensions,
+                them yourself, or connect your auto-apply tools, AI agents,
                 or scripts so new applications show up automatically.
               </p>
               <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
@@ -151,7 +151,7 @@ export default function Home() {
                 className="rotate-1 rounded-xl border border-sage-mid bg-card-bg p-4 shadow-lg sm:p-5"
               >
                 <div className="flex items-center justify-between border-b border-sage-light pb-3">
-                  <span className="text-sm font-semibold text-ink">Recent</span>
+                  <span className="text-sm font-semibold text-ink">Your Jobs</span>
                   <span className="rounded-full bg-sage-light px-2.5 py-1 text-[10px] font-semibold text-sage-dark">
                     3 jobs
                   </span>
@@ -182,7 +182,7 @@ export default function Home() {
         </section>
 
         {/* ── Product Preview ── */}
-        <section id="preview" className="mx-auto max-w-[1400px] px-4 pb-20 sm:px-5 lg:pb-24">
+        <section id="preview" className="mx-auto max-w-[1400px] scroll-mt-24 px-4 pb-20 sm:px-5 lg:pb-24">
           <Reveal>
             <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -262,7 +262,7 @@ export default function Home() {
               </h2>
             </div>
             <div className="space-y-5 border-l border-sage-mid pl-6 text-base leading-7 text-sage-dark sm:text-lg">
-              <p>Applications, interview notes, deadlines, and follow-ups add up quickly.</p>
+              <p>Applications, deadlines, notes, and follow-ups add up quickly.</p>
               <p>Most people track them across spreadsheets, browser tabs, and scattered documents.</p>
               <p>JobTracker keeps everything together so you always know what&apos;s next.</p>
             </div>
@@ -279,12 +279,12 @@ export default function Home() {
               <h2 className="mt-4 max-w-xl font-['Fraunces',serif] text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-ink sm:text-5xl">
                 Already auto-applying? Those jobs can land here too.
               </h2>
-              <p className="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg">
-                If you use an auto-apply tool, a browser extension, or even your own
+              <p className="mt-6 max-w-xl text-base leading-7 text-sage-dark sm:text-lg">
+                If you use an auto-apply tool, an AI agent, or even your own
                 script to send out applications, you can connect it to JobTracker.
                 Every job it submits shows up in your table automatically.
               </p>
-              <p className="mt-3 max-w-xl text-sm text-muted">
+              <p className="mt-3 max-w-xl text-sm text-sage-dark">
                 Set it up from your{" "}
                 <Link href="/settings" className="font-medium text-sage-dark underline underline-offset-2 hover:text-sage-mid">
                   Settings
@@ -338,7 +338,6 @@ export default function Home() {
                       <span className="rounded-full bg-status-applied-bg px-2.5 py-1 text-[10px] font-medium text-status-applied-text">
                         Applied
                       </span>
-                      <span className="text-[10px] text-muted">just now</span>
                     </div>
                   </div>
                 </div>
@@ -367,7 +366,7 @@ export default function Home() {
                       <h3 className="mt-3 max-w-md font-['Fraunces',serif] text-3xl font-semibold leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
                         {feature.title}
                       </h3>
-                      <p className="mt-4 max-w-md text-base leading-7 text-muted sm:text-lg">{feature.body}</p>
+                      <p className="mt-4 max-w-md text-base leading-7 text-sage-dark sm:text-lg">{feature.body}</p>
                     </SlideIn>
                     <SlideIn from={textFromLeft ? "right" : "left"} delay={0.15} className={`mx-auto w-full max-w-lg lg:max-w-none ${index % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}>
                       <FeatureVisual kind={feature.kind} />
@@ -380,21 +379,23 @@ export default function Home() {
         </section>
 
         {/* ── CTA ── */}
-        <section className="bg-pink-light px-4 py-16 sm:px-5 lg:py-20">
-          <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
-            <Image
-              src="/favicon-512x512.png"
-              alt=""
-              width={80}
-              height={80}
-              className="mb-6 drop-shadow-md"
-            />
-            <h2 className="font-['Fraunces',serif] text-3xl font-semibold leading-tight tracking-[-0.035em] text-ink sm:text-5xl">
-              Ready when you are.
-            </h2>
+        <section className="border-t border-sage-mid bg-page-bg px-4 py-14 sm:px-5 lg:py-16">
+          <Reveal className="mx-auto flex max-w-xl items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <Image
+                src="/favicon-512x512.png"
+                alt=""
+                width={48}
+                height={48}
+                className="shrink-0 drop-shadow-sm"
+              />
+              <p className="text-base font-medium text-ink sm:text-lg">
+                Add your first application and go from there.
+              </p>
+            </div>
             <Link
               href="/jobs"
-              className="mt-8 inline-flex items-center gap-2 rounded-lg bg-sage-dark px-6 py-3 text-sm font-semibold text-page-bg transition hover:bg-sage-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-dark focus-visible:ring-offset-2 focus-visible:ring-offset-pink-light"
+              className="shrink-0 rounded-lg bg-sage-dark px-5 py-2.5 text-sm font-semibold text-page-bg transition hover:bg-sage-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-dark focus-visible:ring-offset-2 focus-visible:ring-offset-page-bg"
             >
               Start tracking
             </Link>
@@ -461,15 +462,27 @@ function FeatureVisual({ kind }: { kind: FeatureKind }) {
     return (
       <div aria-hidden="true" className="rounded-xl border border-sage-mid bg-card-bg p-5 sm:p-7">
         <div className="flex items-center justify-between border-b border-sage-light pb-4">
-          <span className="text-sm font-semibold text-ink">Next actions</span>
-          <span className="text-xs font-medium text-sage-mid">This week</span>
+          <span className="text-sm font-semibold text-ink">Overdue Reminder</span>
+          <span className="text-xs font-medium text-sage-mid">Daily email</span>
         </div>
-        <div className="mt-5 space-y-4 text-sm">
-          <ReminderRow label="Send thank-you note" detail="Northstar Labs · today" dot="bg-pink-bold" />
-          <ReminderRow label="Follow up with recruiter" detail="Ritual Health · tomorrow" dot="bg-sage-dark" />
-          <div className="rounded-lg bg-peach px-3 py-3 text-status-interview-text">
-            <p className="font-semibold">Overdue: portfolio follow-up</p>
-            <p className="mt-1 text-xs">Good Kind Co. · 2 days late</p>
+        <div className="mt-5 space-y-3 text-sm">
+          <p className="text-xs text-muted">You have 2 overdue actions:</p>
+          <div className="flex items-center gap-3 rounded-lg border border-sage-light bg-page-bg px-3 py-2.5">
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold text-ink">Good Kind Co.</p>
+              <p className="text-[11px] text-muted">Follow up</p>
+            </div>
+            <span className="shrink-0 text-[11px] font-medium text-pink-bold">3 days overdue</span>
+          </div>
+          <div className="flex items-center gap-3 rounded-lg border border-sage-light bg-page-bg px-3 py-2.5">
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold text-ink">Northstar Labs</p>
+              <p className="text-[11px] text-muted">Send thank-you note</p>
+            </div>
+            <span className="shrink-0 text-[11px] font-medium text-pink-bold">1 day overdue</span>
+          </div>
+          <div className="flex justify-center pt-1">
+            <span className="rounded-lg bg-sage-dark px-4 py-2 text-xs font-semibold text-page-bg">Open JobTracker</span>
           </div>
         </div>
       </div>
@@ -485,11 +498,15 @@ function FeatureVisual({ kind }: { kind: FeatureKind }) {
       <div className="mt-5 space-y-4">
         <div>
           <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-sage-mid">Company</span>
-          <div className="mt-2 rounded-lg border border-pink-light bg-pink-light px-3 py-2 text-sm font-medium text-ink">Northstar Labs</div>
+          <div className="mt-2 rounded-lg border border-sage-light bg-page-bg px-3 py-2 text-sm font-medium text-ink">Northstar Labs</div>
+        </div>
+        <div>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-sage-mid">Job title</span>
+          <div className="mt-2 rounded-lg border border-sage-light bg-page-bg px-3 py-2 text-sm text-ink">Frontend Engineer</div>
         </div>
         <div>
           <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-sage-mid">Next action</span>
-          <div className="mt-2 rounded-lg border border-sage-light bg-page-bg px-3 py-2 text-sm text-muted">Send thank-you note</div>
+          <div className="mt-2 rounded-lg border border-pink-light bg-pink-light/30 px-3 py-2 text-sm text-ink">Send thank-you note</div>
         </div>
         <div className="flex justify-end">
           <span className="rounded-lg bg-sage-dark px-3 py-2 text-xs font-semibold text-page-bg">Save changes</span>
@@ -526,14 +543,3 @@ function MiniTableRow({
   );
 }
 
-function ReminderRow({ label, detail, dot }: { label: string; detail: string; dot: string }) {
-  return (
-    <div className="flex items-start gap-3">
-      <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${dot}`} />
-      <div>
-        <p className="font-medium text-ink">{label}</p>
-        <p className="mt-1 text-xs text-muted">{detail}</p>
-      </div>
-    </div>
-  );
-}
