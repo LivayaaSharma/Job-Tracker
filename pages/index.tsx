@@ -299,22 +299,40 @@ export default function Home() {
                   {/* Flow steps */}
                   <div className="flex items-stretch gap-3">
                     <div className="flex flex-1 flex-col items-center rounded-xl border border-sage-light bg-page-bg p-4 text-center">
-                      <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-sage-light text-base">
-                        &#9881;
+                      <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-sage-light">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A5E3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="2" y="3" width="20" height="14" rx="2" />
+                          <path d="M8 21h8" />
+                          <path d="M12 17v4" />
+                        </svg>
                       </div>
                       <p className="text-sm font-semibold text-ink">Your tool applies</p>
                     </div>
 
-                    <div className="flex items-center text-xl text-pink-bold">&#8594;</div>
+                    <div className="flex items-center">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4537E" strokeWidth="2" strokeLinecap="round">
+                        <path d="M5 12h14" />
+                        <path d="M13 6l6 6-6 6" />
+                      </svg>
+                    </div>
 
                     <div className="flex flex-1 flex-col items-center rounded-xl border border-pink-light bg-pink-light/30 p-4 text-center">
-                      <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-pink-light text-base">
-                        &#9993;
+                      <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-pink-light">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4537E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 8V21H3V8" />
+                          <path d="M1 3h22v5H1z" />
+                          <path d="M10 12h4" />
+                        </svg>
                       </div>
                       <p className="text-sm font-semibold text-ink">Sends it here</p>
                     </div>
 
-                    <div className="flex items-center text-xl text-pink-bold">&#8594;</div>
+                    <div className="flex items-center">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4537E" strokeWidth="2" strokeLinecap="round">
+                        <path d="M5 12h14" />
+                        <path d="M13 6l6 6-6 6" />
+                      </svg>
+                    </div>
 
                     <div className="flex flex-1 flex-col items-center rounded-xl border border-sage-mid bg-sage-light p-4 text-center">
                       <Image
