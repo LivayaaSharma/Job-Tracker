@@ -57,6 +57,7 @@ export function useJobs() {
   const { user } = useAuth();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchJobs = useCallback(async () => {
     if (!user) {
@@ -64,13 +65,15 @@ export function useJobs() {
       setLoading(false);
       return;
     }
-    const { data, error } = await supabase
+    setError(null);
+    const { data, error: fetchError } = await supabase
       .from("jobs")
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (error) {
-      console.error("Failed to fetch jobs:", error.message);
+    if (fetchError) {
+      console.error("Failed to fetch jobs:", fetchError.message);
+      setError(fetchError.message);
     } else {
       setJobs((data as DbRow[]).map(rowToJob));
     }
@@ -134,5 +137,5 @@ export function useJobs() {
     );
   }
 
-  return { jobs, loading, addJob, deleteJob, updateJob };
+  return { jobs, loading, error, addJob, deleteJob, updateJob };
 }

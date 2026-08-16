@@ -25,7 +25,7 @@ function daysOverdue(dateStr: string): number {
 export default function JobsPage() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const { jobs, loading: jobsLoading, deleteJob, updateJob } = useJobs();
+  const { jobs, loading: jobsLoading, error: jobsError, deleteJob, updateJob } = useJobs();
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
@@ -114,7 +114,16 @@ export default function JobsPage() {
         )}
 
         {/* Jobs list */}
-        {jobs.length === 0 ? (
+        {jobsError ? (
+          <div className="mt-10 rounded-xl bg-card-bg p-8 text-center shadow">
+            <p className="text-lg font-semibold text-ink">Couldn&apos;t load your jobs</p>
+            <p className="mt-2 text-sm text-muted">
+              {navigator.onLine
+                ? "Something went wrong. Try refreshing the page."
+                : "You're offline. Connect to the internet and refresh to see your applications."}
+            </p>
+          </div>
+        ) : jobs.length === 0 ? (
           <div className="mt-10 rounded-xl bg-card-bg p-8 text-center text-muted shadow">
             No jobs yet. Add one to get started!
           </div>
