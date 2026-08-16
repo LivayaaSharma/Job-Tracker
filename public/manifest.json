@@ -1,0 +1,21 @@
+{
+  "name": "JobTracker",
+  "short_name": "JobTracker",
+  "description": "Track your job applications in one place.",
+  "start_url": "/jobs",
+  "display": "standalone",
+  "background_color": "#FFF5F6",
+  "theme_color": "#4A5E3A",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
