@@ -1,4 +1,4 @@
-var CACHE_NAME = "jobtracker-static-v1";
+var CACHE_NAME = "jobtracker-static-v2";
 
 var PRECACHE_URLS = [
   "/offline.html",
