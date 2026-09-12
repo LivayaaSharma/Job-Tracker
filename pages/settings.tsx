@@ -294,7 +294,7 @@ export default function SettingsPage() {
           {/* curl example */}
           <p className="mt-4 text-xs font-medium text-ink">curl (terminal)</p>
           <pre className="mt-1 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
-{`curl -X POST ${typeof window !== "undefined" ? window.location.origin : "https://your-app.vercel.app"}/api/jobs \\
+{`curl -X POST ${process.env.NEXT_PUBLIC_APP_URL || "https://your-app.vercel.app"}/api/jobs \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer PASTE_YOUR_API_KEY_HERE" \\
   -d '{
@@ -310,7 +310,7 @@ export default function SettingsPage() {
 {`import requests
 
 requests.post(
-    "${typeof window !== "undefined" ? window.location.origin : "https://your-app.vercel.app"}/api/jobs",
+    "${process.env.NEXT_PUBLIC_APP_URL || "https://your-app.vercel.app"}/api/jobs",
     headers={"Authorization": "Bearer PASTE_YOUR_API_KEY_HERE"},
     json={
         "company": "Google",

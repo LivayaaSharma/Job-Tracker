@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@supabase/supabase-js";
+import { timingSafeEqual } from "crypto";
 import { Resend } from "resend";
 
 function createServiceClient() {
@@ -11,21 +12,25 @@ function createServiceClient() {
   return createClient(url, serviceKey);
 }
 
+function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
+  if (req.method !== "GET") {
+    res.setHeader("Allow", "GET");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  // Verify this is a legitimate cron call
   const cronSecret = process.env.CRON_SECRET;
   const authHeader = req.headers.authorization ?? "";
   const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
 
-  if (!cronSecret || token !== cronSecret) {
+  if (!cronSecret || !token || !safeEqual(token, cronSecret)) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
@@ -38,7 +43,6 @@ export default async function handler(
   const admin = createServiceClient();
   const today = new Date().toISOString().slice(0, 10);
 
-  // Find all overdue jobs (next_action_date is in the past)
   const { data: overdueJobs, error: queryError } = await admin
     .from("jobs")
     .select("user_id, company, job_title, next_action, next_action_date")
@@ -53,7 +57,6 @@ export default async function handler(
     return res.status(200).json({ sent: 0, message: "No overdue jobs found" });
   }
 
-  // Group by user
   const byUser = new Map<string, typeof overdueJobs>();
   for (const job of overdueJobs) {
     const list = byUser.get(job.user_id) ?? [];
@@ -61,26 +64,16 @@ export default async function handler(
     byUser.set(job.user_id, list);
   }
 
-  // Get emails for all users with overdue jobs
-  const userIds = [...byUser.keys()];
-  const { data: users, error: usersError } = await admin.auth.admin.listUsers();
-
-  if (usersError) {
-    return res.status(500).json({ error: "Failed to fetch user data" });
-  }
-
   const emailMap = new Map<string, string>();
-  for (const u of users.users) {
-    if (u.email && userIds.includes(u.id)) {
-      // Skip users who opted out of email reminders
-      if (u.user_metadata?.email_reminders === false) continue;
-      emailMap.set(u.id, u.email);
-    }
+  for (const userId of byUser.keys()) {
+    const { data, error: userError } = await admin.auth.admin.getUserById(userId);
+    if (userError || !data?.user?.email) continue;
+    if (data.user.user_metadata?.email_reminders === false) continue;
+    emailMap.set(userId, data.user.email);
   }
 
-  // Send one email per user
   let sent = 0;
-  const errors: string[] = [];
+  let failed = 0;
 
   for (const [userId, jobs] of byUser) {
     const email = emailMap.get(userId);
@@ -135,17 +128,13 @@ export default async function handler(
     });
 
     if (sendError) {
-      errors.push(userId);
+      failed++;
     } else {
       sent++;
     }
   }
 
-  return res.status(200).json({
-    sent,
-    failed: errors.length,
-    total_overdue: overdueJobs.length,
-  });
+  return res.status(200).json({ sent, failed });
 }
 
 function escapeHtml(str: string): string {

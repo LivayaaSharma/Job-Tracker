@@ -118,9 +118,9 @@ export default function JobsPage() {
           <div className="mt-10 rounded-xl bg-card-bg p-8 text-center shadow">
             <p className="text-lg font-semibold text-ink">Couldn&apos;t load your jobs</p>
             <p className="mt-2 text-sm text-muted">
-              {navigator.onLine
-                ? "Something went wrong. Try refreshing the page."
-                : "You're offline. Connect to the internet and refresh to see your applications."}
+              {typeof navigator !== "undefined" && !navigator.onLine
+                ? "You're offline. Connect to the internet and refresh to see your applications."
+                : "Something went wrong. Try refreshing the page."}
             </p>
           </div>
         ) : jobs.length === 0 ? (

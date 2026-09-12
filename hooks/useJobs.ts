@@ -69,6 +69,7 @@ export function useJobs() {
     const { data, error: fetchError } = await supabase
       .from("jobs")
       .select("*")
+      .eq("user_id", user.id)
       .order("created_at", { ascending: false });
 
     if (fetchError) {
@@ -102,7 +103,8 @@ export function useJobs() {
     const { error } = await supabase
       .from("jobs")
       .delete()
-      .eq("id", id);
+      .eq("id", id)
+      .eq("user_id", user.id);
 
     if (error) {
       console.error("Failed to delete job:", error.message);
@@ -126,7 +128,8 @@ export function useJobs() {
     const { error } = await supabase
       .from("jobs")
       .update(rowUpdates)
-      .eq("id", id);
+      .eq("id", id)
+      .eq("user_id", user.id);
 
     if (error) {
       console.error("Failed to update job:", error.message);

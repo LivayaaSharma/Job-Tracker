@@ -37,6 +37,9 @@ export default function JobForm({ onSave }: JobFormProps) {
           setSaving(true);
           const form = e.currentTarget;
           const data = Object.fromEntries(new FormData(form).entries());
+          const rawLink = ((data.jobLink as string) || "").trim();
+          const safeLink = rawLink && /^https?:\/\//i.test(rawLink) ? rawLink : "";
+
           const values: JobFormValues = {
             company: (data.company as string) || "",
             jobTitle: (data.jobTitle as string) || "",
@@ -44,7 +47,7 @@ export default function JobForm({ onSave }: JobFormProps) {
             dateApplied: (data.dateApplied as string) || "",
             nextAction: (data.nextAction as string) || "",
             nextActionDate: (data.nextActionDate as string) || "",
-            jobLink: (data.jobLink as string) || "",
+            jobLink: safeLink,
             notes: (data.notes as string) || "",
           };
           if (onSave) await onSave(values);

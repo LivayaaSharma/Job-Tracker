@@ -35,6 +35,9 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget).entries());
 
+    const rawLink = ((data.jobLink as string) || "").trim();
+    const safeLink = rawLink && /^https?:\/\//i.test(rawLink) ? rawLink : "";
+
     const updates: Partial<Job> = {
       company: (data.company as string) || "",
       jobTitle: (data.jobTitle as string) || "",
@@ -42,7 +45,7 @@ export default function EditJobModal({ job, onSave, onClose }: EditJobModalProps
       dateApplied: (data.dateApplied as string) || "",
       nextAction: (data.nextAction as string) || "",
       nextActionDate: (data.nextActionDate as string) || "",
-      jobLink: (data.jobLink as string) || "",
+      jobLink: safeLink,
       notes: (data.notes as string) || "",
     };
 

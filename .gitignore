@@ -34,10 +34,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-/.env
-.env.*.local
-*.local
+# env files
+.env*
+!.env.example
 
 # vercel
 .vercel
@@ -55,3 +54,7 @@ dist/
 
 # personal notes
 NOTES-*.md
+DECISIONS.md
+FLOWS.md
+CHANGELOG_LEARNING.md
+SECURITY.md
