@@ -1,17 +1,32 @@
 # Job Tracker
 
-A job application tracker for managing the job search: log applications, track status changes, and get reminded to follow up. Built with Next.js and Supabase.
+Track job applications and automatically pull in jobs from any auto-apply tool, AI agent, or script you already use. Built with Next.js and Supabase.
 
 **Live:** https://jobtracker-ls.vercel.app/
 
+
+
+#### Job Tracker table view
+<img width="1780" height="643" alt="Screenshot 2026-09-15 155717" src="https://github.com/user-attachments/assets/66e22732-35fa-483b-8ea5-fee18deac55d" />
+
+
+## Why this exists
+
+Most job trackers make you log applications by hand. If you're mass-applying with tools like Simplify, Sonara, or your own scripts, that defeats the purpose. Job Tracker has a REST API that lets any external tool push applications directly into your table, secured with per-user API keys.
+
+<img width="1757" height="480" alt="Screenshot 2026-09-15 155733" src="https://github.com/user-attachments/assets/4bb8549c-5920-4783-acc0-69274981276f" />
+
+
+
 ## What it does
 
-- Track job applications through statuses: saved, applied, interview, offer, rejected — in a sortable table view
-- Bulk select and delete applications at once
-- Ingest job postings through a REST API secured with per-user API keys, for external tools/scripts/bots to auto-add jobs
-- Email reminders for follow-ups via scheduled Vercel cron jobs (currently works for the app owner; public email delivery is pending domain verification with Resend)
-- Installable as a PWA with offline support and a custom 404 page
-- Auth and row-level security handled through Supabase
+- External tools push jobs into your table through a REST API with per-user API keys
+- Track applications through statuses: saved, applied, interview, offer, rejected
+- Sortable table view with overdue action highlighting
+- Bulk select and delete
+- Daily email reminders for overdue follow-ups via Vercel cron (currently single-recipient; multi-user delivery pending Resend domain verification)
+- Installable as a PWA with offline fallback
+- Auth and row-level security through Supabase
 
 ## Tech stack
 
@@ -22,28 +37,34 @@ A job application tracker for managing the job search: log applications, track s
 - Resend (email)
 
 ## Project structure
-/pages # Routes (Pages Router)
-/pages/api # API routes — ingestion, key management, reminders
-/components # Reusable UI
-/hooks # Custom React hooks
-/lib # API clients, helpers
-/styles # Tailwind/global styles
-/public # Static assets
+
+- `/pages` — routes (Pages Router)
+- `/pages/api` — API routes: ingestion, key management, reminders
+- `/components` — reusable UI
+- `/hooks` — custom React hooks
+- `/lib` — API clients, helpers
+- `/styles` — Tailwind and global styles
+- `/public` — static assets
+
 
 
 ## Getting started
 
-1. Install dependencies
-   npm install
-   
-3. Set up environment variables
+1. Install dependencies 
+   ```
+    npm install
+   ```
+2. Set up environment variables
+```
    cp .env.example .env.local
-   Fill in your Supabase keys and any other secrets listed in `.env.example`.
+```
+Fill in your Supabase keys and other secrets listed in `.env.example`.
    
 3. Run the dev server
+   ```
    npm run dev
-
-   App runs at http://localhost:3000
+   ```
+App runs at http://localhost:3000
 
 ## Scripts
 
@@ -60,12 +81,12 @@ See `.env.example` for the required keys. Never commit `.env.local`.
 
 ## Roadmap
 
-- AI-powered job description auto-fill using the Anthropic API
+- Job description auto-fill via Anthropic API
 - Full email reminder support for all users (domain verification with Resend)
 
 ## Contributing
 
-PRs welcome. Keep commits focused and include screenshots for UI changes.
+This is a personal project, but feedback is welcome.
 
 ## License
 
