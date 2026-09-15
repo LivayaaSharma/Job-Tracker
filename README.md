@@ -5,8 +5,6 @@ Track job applications and automatically pull in jobs from any auto-apply tool, 
 **Live:** https://jobtracker-ls.vercel.app/
 
 
-
-#### Job Tracker table view
 <img width="1780" height="643" alt="Screenshot 2026-09-15 155717" src="https://github.com/user-attachments/assets/66e22732-35fa-483b-8ea5-fee18deac55d" />
 
 
@@ -38,13 +36,13 @@ Most job trackers make you log applications by hand. If you're mass-applying wit
 
 ## Project structure
 
-- `/pages` — routes (Pages Router)
-- `/pages/api` — API routes: ingestion, key management, reminders
-- `/components` — reusable UI
-- `/hooks` — custom React hooks
-- `/lib` — API clients, helpers
-- `/styles` — Tailwind and global styles
-- `/public` — static assets
+- `/pages`: routes (Pages Router)
+- `/pages/api`: API routes: ingestion, key management, reminders
+- `/components`: reusable UI
+- `/hooks`: custom React hooks
+- `/lib`: API clients, helpers
+- `/styles`: Tailwind and global styles
+- `/public`: static assets
 
 
 
@@ -55,16 +53,16 @@ Most job trackers make you log applications by hand. If you're mass-applying wit
     npm install
    ```
 2. Set up environment variables
-```
+   ```
    cp .env.example .env.local
-```
-Fill in your Supabase keys and other secrets listed in `.env.example`.
+   ```
+      Fill in your Supabase keys and other secrets listed in `.env.example`.
    
 3. Run the dev server
    ```
    npm run dev
    ```
-App runs at http://localhost:3000
+      App runs at http://localhost:3000
 
 ## Scripts
 
