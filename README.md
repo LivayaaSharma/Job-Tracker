@@ -1,58 +1,74 @@
 # Job Tracker
 
-A lightweight job application tracker built with **Next.js (Pages Router)**, **Tailwind CSS**, and **Supabase**.  
-Plan: track applications, statuses (applied/withdrawn/rejected), and analyze job descriptions with OpenAI.
+A job application tracker for managing the job search: log applications, track status changes, and get reminded to follow up. Built with Next.js and Supabase.
 
-## Tech Stack
+**Live:** https://jobtracker-ls.vercel.app/
 
-- Next.js (Pages Router) + React
+## What it does
+
+- Track job applications through statuses: saved, applied, interview, offer, rejected — in a sortable table view
+- Bulk select and delete applications at once
+- Ingest job postings through a REST API secured with per-user API keys, for external tools/scripts/bots to auto-add jobs
+- Email reminders for follow-ups via scheduled Vercel cron jobs (currently works for the app owner; public email delivery is pending domain verification with Resend)
+- Installable as a PWA with offline support and a custom 404 page
+- Auth and row-level security handled through Supabase
+
+## Tech stack
+
+- Next.js (Pages Router) + React, TypeScript
 - Tailwind CSS
-- Supabase (Auth + DB)
-- Deployed on Vercel (planned)
+- Supabase (Auth, Postgres, RLS)
+- Vercel (hosting, cron jobs)
+- Resend (email)
 
-## Getting Started
+## Project structure
+/pages # Routes (Pages Router)
+/pages/api # API routes — ingestion, key management, reminders
+/components # Reusable UI
+/hooks # Custom React hooks
+/lib # API clients, helpers
+/styles # Tailwind/global styles
+/public # Static assets
 
-1. Install dependencies:
+
+## Getting started
+
+1. Install dependencies
    npm install
-
-2. Create a local env file:
-   cp .env.example .env
-   (Fill in Supabase keys and any other secrets)
-
-3. Run the dev server:
+   
+3. Set up environment variables
+   cp .env.example .env.local
+   Fill in your Supabase keys and any other secrets listed in `.env.example`.
+   
+3. Run the dev server
    npm run dev
-   App will be on http://localhost:3000
+
+   App runs at http://localhost:3000
 
 ## Scripts
 
-- npm run dev – start Next.js in dev
-- npm run build – production build
-- npm run start – start production server
-- npm run lint – lint code
+| Command | Description |
+|---|---|
+| `npm run dev` | Start Next.js in dev mode |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Lint code |
 
-## Project Structure
+## Environment variables
 
-/pages # Pages Router
-/components # Reusable UI
-/styles # Tailwind/global styles
-/public # Static assets (favicons, images)
-
-## Environment Variables
-
-See `.env.example`. Do **not** commit `.env`.
+See `.env.example` for the required keys. Never commit `.env.local`.
 
 ## Roadmap
 
-- [ ] Job status filters (applied / withdrawn / rejected)
-- [ ] Supabase schema + auth
-- [ ] OpenAI-powered JD analysis
-- [ ] Notifications
-- [ ] Deploy to Vercel
+- AI-powered job description auto-fill using the Anthropic API
+- Full email reminder support for all users (domain verification with Resend)
 
 ## Contributing
 
-PRs welcome. Keep commits focused; include screenshots for UI changes.
+PRs welcome. Keep commits focused and include screenshots for UI changes.
 
 ## License
 
-MIT © 2025 Livayaa Sharma
+MIT © 2025-2026 Livayaa Sharma
+
+
