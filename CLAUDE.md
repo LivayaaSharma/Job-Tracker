@@ -1,26 +1,29 @@
 # JobTracker — Project Context for Claude Code
 
 ## What this is
-A personal job application tracker web app. Kanban-style board where you can add, organize, and track job applications through stages (Saved → Applied → Interview → Offer → Rejected). Built as a learning project — the goal is to develop real engineering skills, not just ship fast.
+A personal job application tracker. Table-based view to track applications through stages (Saved, Applied, Interview, Offer, Rejected), with a REST API for external tools to push jobs in automatically. Built as a learning project.
 
 ## Who's building this
-A 2nd-year CS student who wants to learn properly. Previously paused this project after recognizing over-reliance on AI-generated code ("vibe coding"). Resuming it with intentional learning practices.
+A 2nd-year CS student learning full-stack development. Using AI tools intentionally, not as a crutch.
 
 ## Tech stack
 - **Framework:** Next.js 15 (Pages Router)
 - **UI:** React 19 + TypeScript
 - **Styling:** Tailwind CSS + CSS custom properties
 - **Animation:** Framer Motion
-- **Fonts:** Fraunces (headings) + Space Grotesk (body) — load from Google Fonts
-- **No backend yet** — start with localStorage, plan for a real database later
+- **Database/Auth:** Supabase (Postgres + Auth + RLS)
+- **Email:** Resend
+- **Hosting:** Vercel (with cron jobs)
+- **Fonts:** Fraunces (headings) + Space Grotesk (body) via Google Fonts
 
 ## Current state
-- Landing page exists with hero section (has broken imports: RotatingText, PixelCarousel)
-- Job form exists at /apply but submits to console.log (no persistence)
-- /jobs and /about are placeholder pages
-- JobCard.tsx is empty
-- No shared layout component — each page manually includes Navbar
-- No data layer at all
+- Full CRUD for job applications (add, edit, delete, bulk delete)
+- Auth (signup, login, logout, password reset)
+- Row-level security on all tables
+- External ingestion API with per-user API key management
+- Daily email reminders for overdue actions (Vercel cron)
+- PWA with offline fallback
+- Security audit completed and fixes applied
 
 ## Design system
 
@@ -48,8 +51,8 @@ A 2nd-year CS student who wants to learn properly. Previously paused this projec
 | Rejected  | #FCEBEB   | #A32D2D    |
 
 ### Typography
-- **Headings:** Fraunces (serif, Google Fonts) — gives personality and warmth
-- **Body/UI:** Space Grotesk (sans, Google Fonts) — clean and modern
+- **Headings:** Fraunces (serif, Google Fonts)
+- **Body/UI:** Space Grotesk (sans, Google Fonts)
 - Use Fraunces for page titles, card company names, logo text
 - Use Space Grotesk for everything else (nav links, form labels, body text, badges)
 
@@ -61,47 +64,32 @@ A 2nd-year CS student who wants to learn properly. Previously paused this projec
 
 ### Layout
 - **Nav:** Top bar, white background, logo left, links right. Active link has sage dark color + 2px bottom border
-- **Main view:** Table — one row per job. Summary bar above with counts (Tracked, Applied, Interviews, Overdue)
+- **Main view:** Table with one row per job. Summary bar above with counts (Tracked, Applied, Interviews, Overdue)
 - **Table columns:** Company/Role | Status (colored pill) | Date Applied | Next Action | Next Action Date | Job Link | Delete
-- **Density:** Tight — minimize padding, fit more jobs on screen. People mass-apply and need to see everything at a glance
+- **Density:** Tight padding, fit more jobs on screen
 - **Overdue rows:** Subtle pink highlight, date replaced with "N days overdue" text in pink-bold
 
 ### Job data fields
 Each job tracks: Company, Job Title, Status, Date Applied, Next Action, Next Action Date, Job Link, Notes
 
-### Empty states
-Use the pixel mascot character with a speech bubble. Friendly and encouraging tone ("No applications yet — let's change that!"). The mascot adds personality and makes empty columns feel intentional, not broken.
-
 ### Personality
-- Pixel mascot character (already exists as an asset) appears in empty states, possibly nav
-- Warm and playful overall — this should feel like a cozy personal tool, not a corporate SaaS product
+- Pixel mascot character appears in empty states and offline page
+- Warm and playful, not corporate
 - No blue anywhere in the palette
 
 ## How to work with me
 
 ### Learning rules (IMPORTANT)
-- **Explain changes before making them.** Don't just edit files — tell me what you're about to do and why.
-- **Don't write code I haven't asked for.** No surprise refactors, no "while I'm at it" changes.
-- **When I ask how to do something, guide me through it — don't just do it.** Ask me what I think the approach should be first.
-- **Prefer teaching over doing.** If I need to learn a concept (like how useState works, or how to map over an array), explain it with a small example before applying it to the codebase.
-- **Review my code when I write it.** Point out bugs, bad patterns, and better approaches — but don't rewrite it for me.
-- **Say "I'm not sure" instead of guessing** if you genuinely don't know something.
-- **Don't add new dependencies without asking.** Explain why we'd need them and what alternatives exist.
-
-### Session start routine
-At the start of each session:
-1. Read this file
-2. Ask what mode I want to work in today:
-   - **Explain mode** — help me understand existing code
-   - **Rubber duck mode** — help me think through a problem without writing code
-   - **Code review mode** — review code I've written
-   - **Debug mode** — help me find and fix a bug
-   - **Build mode** — actually write code together (use sparingly)
-3. Ask what I want to work on this session
-4. Don't start making changes until we've agreed on the plan
+- **Explain changes before making them.** Don't just edit files.
+- **Don't write code I haven't asked for.** No surprise refactors.
+- **When I ask how to do something, guide me through it.** Ask me what I think the approach should be first.
+- **Prefer teaching over doing.** Explain concepts with small examples before applying them.
+- **Review my code when I write it.** Point out bugs, bad patterns, and better approaches.
+- **Say "I'm not sure" instead of guessing.**
+- **Don't add new dependencies without asking.**
 
 ### Code style
-- Use Tailwind utility classes, mapped to the design tokens above via CSS custom properties
+- Use Tailwind utility classes, mapped to design tokens via CSS custom properties
 - Keep components small and focused
 - Use meaningful variable and function names
 - Add comments only when the "why" isn't obvious from the code
