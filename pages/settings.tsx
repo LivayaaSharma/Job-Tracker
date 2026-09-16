@@ -292,7 +292,7 @@ export default function SettingsPage() {
           </p>
 
           {/* curl example */}
-          <p className="mt-4 text-xs font-medium text-ink">curl (terminal)</p>
+          <p className="mt-4 text-xs font-medium text-ink">curl (Mac / Linux)</p>
           <pre className="mt-1 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
 {`curl -X POST ${process.env.NEXT_PUBLIC_APP_URL || "https://your-app.vercel.app"}/api/jobs \\
   -H "Content-Type: application/json" \\
@@ -302,6 +302,16 @@ export default function SettingsPage() {
     "jobTitle": "SWE Intern",
     "status": "applied"
   }'`}
+          </pre>
+
+          {/* PowerShell example */}
+          <p className="mt-4 text-xs font-medium text-ink">PowerShell (Windows)</p>
+          <pre className="mt-1 overflow-x-auto rounded-lg bg-[#2C3525] px-4 py-3 text-xs text-page-bg leading-relaxed">
+{`Invoke-WebRequest -Uri "${process.env.NEXT_PUBLIC_APP_URL || "https://your-app.vercel.app"}/api/jobs" \`
+  -Method POST -ContentType "application/json" \`
+  -Headers @{Authorization="Bearer PASTE_YOUR_API_KEY_HERE"} \`
+  -Body '{"company":"Google","jobTitle":"SWE Intern","status":"applied"}' \`
+  -UseBasicParsing`}
           </pre>
 
           {/* Python example */}

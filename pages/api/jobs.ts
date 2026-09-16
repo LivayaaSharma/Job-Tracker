@@ -74,7 +74,7 @@ export default async function handler(
   }
 
   // Validate optional fields
-  const status = sanitize(body.status) || "applied";
+  const status = (sanitize(body.status) || "applied").toLowerCase();
   if (!VALID_STATUSES.includes(status)) {
     return res
       .status(400)
