@@ -1,10 +1,7 @@
-# JobTracker — Project Context for Claude Code
+# JobTracker
 
-## What this is
-A personal job application tracker. Table-based view to track applications through stages (Saved, Applied, Interview, Offer, Rejected), with a REST API for external tools to push jobs in automatically. Built as a learning project.
-
-## Who's building this
-A 2nd-year CS student learning full-stack development. Using AI tools intentionally, not as a crutch.
+## Overview
+A job application tracker with a table-based UI and an API for external tools to push jobs in automatically.
 
 ## Tech stack
 - **Framework:** Next.js 15 (Pages Router)
@@ -20,7 +17,7 @@ A 2nd-year CS student learning full-stack development. Using AI tools intentiona
 - Full CRUD for job applications (add, edit, delete, bulk delete)
 - Auth (signup, login, logout, password reset)
 - Row-level security on all tables
-- External ingestion API with per-user API key management
+- Ingestion API with per-user API key management
 - Daily email reminders for overdue actions (Vercel cron)
 - PWA with offline fallback
 - Security audit completed and fixes applied
@@ -72,21 +69,11 @@ A 2nd-year CS student learning full-stack development. Using AI tools intentiona
 ### Job data fields
 Each job tracks: Company, Job Title, Status, Date Applied, Next Action, Next Action Date, Job Link, Notes
 
-### Personality
-- Pixel mascot character appears in empty states and offline page
-- Warm and playful, not corporate
+### Visual style
+- Pixel mascot character in empty states and offline page
 - No blue anywhere in the palette
 
-## How to work with me
-
-### Learning rules (IMPORTANT)
-- **Explain changes before making them.** Don't just edit files.
-- **Don't write code I haven't asked for.** No surprise refactors.
-- **When I ask how to do something, guide me through it.** Ask me what I think the approach should be first.
-- **Prefer teaching over doing.** Explain concepts with small examples before applying them.
-- **Review my code when I write it.** Point out bugs, bad patterns, and better approaches.
-- **Say "I'm not sure" instead of guessing.**
-- **Don't add new dependencies without asking.**
+## Development guidelines
 
 ### Code style
 - Use Tailwind utility classes, mapped to design tokens via CSS custom properties
@@ -94,3 +81,9 @@ Each job tracks: Company, Job Title, Status, Date Applied, Next Action, Next Act
 - Use meaningful variable and function names
 - Add comments only when the "why" isn't obvious from the code
 - Prefer named exports
+- Don't add new dependencies without discussion
+
+### Workflow
+- Explain changes before making them
+- No surprise refactors or unrequested features
+- Review code for bugs, bad patterns, and improvements
