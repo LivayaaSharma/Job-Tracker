@@ -49,12 +49,11 @@ next-env.d.ts
 .vscode/
 .idea/
 
+# claude code
+.claude/
+
 # builds / coverage
 dist/
 
-# personal notes
-NOTES-*.md
-DECISIONS.md
-FLOWS.md
-CHANGELOG_LEARNING.md
-SECURITY.md
+# local docs
+/docs-local/

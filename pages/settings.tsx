@@ -286,7 +286,7 @@ export default function SettingsPage() {
             How to use your API key
           </h3>
           <p className="mt-2 text-sm text-muted">
-            Paste this into your script, AI agent, or any tool that can make HTTP requests.
+            Paste this into your script or any tool that can make HTTP requests.
             Replace <code className="font-medium text-ink">PASTE_YOUR_API_KEY_HERE</code> with
             the key you copied above.
           </p>

@@ -22,7 +22,7 @@ Most job trackers make you log every application by hand. JobTracker lets you co
 - Sortable table view with overdue action highlighting
 - Bulk select and delete
 - Daily email reminders for overdue follow-ups via Vercel cron (currently single-recipient; multi-user delivery pending Resend domain verification)
-- Installable as a PWA 
+- Installable as a PWA
 - Auth and row-level security through Supabase
 
 ## Tech stack
@@ -73,7 +73,6 @@ Most job trackers make you log every application by hand. JobTracker lets you co
 ## Environment variables
 
 See `.env.example` for the required keys. Never commit `.env.local`.
-
 
 ## Contributing
 

@@ -196,7 +196,7 @@ export default function JobForm({ onSave }: JobFormProps) {
                      hover:bg-sage-mid disabled:opacity-50
                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-mid"
         >
-          {saving ? "Saving..." : "Save and Breathe"}
+          {saving ? "Saving..." : "Add application"}
         </button>
       </form>
     </section>

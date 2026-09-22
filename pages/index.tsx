@@ -123,10 +123,9 @@ export default function Home() {
               <h1 className="font-['Fraunces',serif] text-4xl font-semibold leading-[1.08] tracking-[-0.04em] text-ink sm:text-5xl lg:text-6xl">
                 All your applications.<br />One place to check.
               </h1>
-              <p className="mx-auto mt-5 max-w-lg text-base leading-7 text-muted sm:text-lg lg:mx-0">
+              <p className="mx-auto mt-5 max-w-lg text-base leading-7 text-sage-dark sm:text-lg lg:mx-0">
                 Track statuses, deadlines, and follow-ups for every job you apply to. Add
-                them yourself, or connect your auto-apply tools, AI agents,
-                or scripts so new applications show up automatically.
+                them yourself, or connect other tools so jobs show up on their own.
               </p>
               <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
                 <Link
@@ -191,7 +190,7 @@ export default function Home() {
                   Your job search, organized.
                 </h2>
               </div>
-              <p className="max-w-xs text-sm leading-6 text-muted sm:text-right">
+              <p className="max-w-xs text-sm leading-6 text-sage-dark sm:text-right">
                 Applications, statuses, deadlines, and next steps, all visible at once.
               </p>
             </div>
@@ -277,12 +276,12 @@ export default function Home() {
                 Connect your tools
               </p>
               <h2 className="mt-4 max-w-xl font-['Fraunces',serif] text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-ink sm:text-5xl">
-                Already auto-applying? Those jobs can land here too.
+                Your other tools can add jobs too.
               </h2>
               <p className="mt-6 max-w-xl text-base leading-7 text-sage-dark sm:text-lg">
-                If you use an auto-apply tool, an AI agent, or even your own
-                script to send out applications, you can connect it to JobTracker.
-                Every job it submits shows up in your table automatically.
+                If you use other tools to send out applications, you can connect
+                them to JobTracker. Every job they submit shows up in your table
+                automatically.
               </p>
               <p className="mt-3 max-w-xl text-sm text-sage-dark">
                 Set it up from your{" "}
