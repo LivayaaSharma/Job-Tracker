@@ -1,6 +1,6 @@
 # Job Tracker
 
-Track job applications and automatically pull in jobs from any auto-apply tool, AI agent, or script you already use. Built with Next.js and Supabase.
+Track job applications in one place. Add them yourself or connect your tools so new applications show up automatically. Built with Next.js and Supabase.
 
 **Live:** https://jobtracker-ls.vercel.app/
 
@@ -10,19 +10,19 @@ Track job applications and automatically pull in jobs from any auto-apply tool, 
 
 ## Why this exists
 
-Most job trackers make you log applications by hand. If you're mass-applying with tools like Simplify, Sonara, or your own scripts, that defeats the purpose. Job Tracker has a REST API that lets any external tool push applications directly into your table, secured with per-user API keys.
+Most job trackers make you log every application by hand. JobTracker lets you connect your own tools so applications can show up automatically, secured with per-user API keys.
 
 <img width="1757" height="480" alt="Screenshot 2026-09-15 155733" src="https://github.com/user-attachments/assets/4bb8549c-5920-4783-acc0-69274981276f" />
 
 
 ## What it does
 
-- External tools push jobs into your table through a REST API with per-user API keys
+- Connect your tools to add jobs automatically via API, secured with per-user keys
 - Track applications through statuses: saved, applied, interview, offer, rejected
 - Sortable table view with overdue action highlighting
 - Bulk select and delete
 - Daily email reminders for overdue follow-ups via Vercel cron (currently single-recipient; multi-user delivery pending Resend domain verification)
-- Installable as a PWA with offline fallback
+- Installable as a PWA 
 - Auth and row-level security through Supabase
 
 ## Tech stack
@@ -74,10 +74,6 @@ Most job trackers make you log applications by hand. If you're mass-applying wit
 
 See `.env.example` for the required keys. Never commit `.env.local`.
 
-## Roadmap
-
-- Job description auto-fill via Anthropic API
-- Full email reminder support for all users (domain verification with Resend)
 
 ## Contributing
 
